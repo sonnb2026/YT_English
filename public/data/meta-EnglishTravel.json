@@ -1,0 +1,23 @@
+{
+  "list": "EnglishTravel",
+  "lastUpdated": "2026-10-02T13:46:32.542Z",
+  "channelCount": 18,
+  "videoCount": 2150,
+  "quotaUnitsUsed": 4382,
+  "apiKeysConfigured": 3,
+  "vph": {
+    "minIntervalHours": 6,
+    "windowMaxHours": 24,
+    "fallbackMaxHours": 48,
+    "maxSnapshots": 8
+  },
+  "liveCount": 1,
+  "allKeysExhausted": false,
+  "errors": [
+    {
+      "channel": "https://www.youtube.com/@AmazingGlobeDocumentary/videos",
+      "error": "Channel not found for \"https://www.youtube.com/@AmazingGlobeDocumentary/videos\""
+    }
+  ],
+  "replyErrors": []
+}
