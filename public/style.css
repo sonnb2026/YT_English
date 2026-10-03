@@ -1781,3 +1781,5 @@ thead .col-num,
 }
 .title-tooltip.visible { opacity: 1; visibility: visible; }
 .title-tooltip--pending { color: var(--text-muted); font-style: italic; }
+
+.channel-group-badge--time { color: #f9a8d4; background: rgba(244, 114, 182, 0.13); border-color: rgba(244, 114, 182, 0.35); }
