@@ -17,7 +17,6 @@ const els = {
   search: document.getElementById("searchInput"),
   sortField: document.getElementById("sortField"),
   sortDir: document.getElementById("sortDir"),
-  dateRangeFilter: document.getElementById("dateRangeFilter"),
   channelFilterWrap: document.getElementById("channelFilterWrap"),
   channelFilterBtn: document.getElementById("channelFilterBtn"),
   channelFilterPanel: document.getElementById("channelFilterPanel"),
@@ -72,11 +71,6 @@ const els = {
   commentSortDir: document.getElementById("commentSortDir"),
   videoTableColgroup: document.getElementById("videoTableColgroup"),
   videoTableHeadRow: document.getElementById("videoTableHeadRow"),
-  metricFilterWrap: document.getElementById("metricFilterWrap"),
-  metricFilterBtn: document.getElementById("metricFilterBtn"),
-  metricFilterPanel: document.getElementById("metricFilterPanel"),
-  metricFilterList: document.getElementById("metricFilterList"),
-  metricFilterLabel: document.getElementById("metricFilterLabel"),
   channelGroupSummary: document.getElementById("channelGroupSummary"),
   exportExcelBtn: document.getElementById("exportExcelBtn"),
 };
@@ -264,6 +258,7 @@ const CHANNEL_GROUP_OPTIONS = [
 // Rỗng = không lọc (hiện tất cả). Có ≥1 phần tử = chỉ hiện video thuộc các nhóm đã chọn.
 let selectedViewGroups = new Set();
 let selectedChannelGroups = new Set(); // lọc bằng chip "Nhóm kênh" phía trên bảng
+let selectedTimeRanges = new Set(); // chip thời gian: lt10 | 10to30 | gt30
 let engagementOnly = false; // chip "Tương tác" = chỉ video có tỷ lệ tương tác > 1%
 let baseVideos = [];
 const titleTranslations = new Map(); // videoId -> tiêu đề đã dịch
@@ -539,7 +534,7 @@ function switchList(listName) {
     btn.setAttribute("aria-selected", String(isActive));
   });
   els.search.value = "";
-  els.dateRangeFilter.value = "all";
+  selectedTimeRanges = new Set();
   selectedChannelGroups = new Set();
   engagementOnly = false;
   loadData();
@@ -655,7 +650,6 @@ document.addEventListener("click", (e) => {
   if (!els.channelFilterWrap.contains(e.target)) toggleChannelPanel(false);
   if (!els.fetchTriggerWrap.contains(e.target)) toggleFetchPanel(false);
   if (!els.manageChannelsWrap.contains(e.target)) toggleManagePanel(false);
-  if (!els.metricFilterWrap.contains(e.target)) toggleMetricPanel(false);
 });
 
 function toggleFetchPanel(forceOpen) {
@@ -890,16 +884,8 @@ els.clearAllChannels.addEventListener("click", () => {
 function applyFilters() {
   const q = els.search.value.trim().toLowerCase();
   const filterActive = selectedChannelIds.size > 0 && selectedChannelIds.size < allChannelIds.length;
-  const range = els.dateRangeFilter.value; // all | lt10 | 10to30 | gt30
   const passesBase = (v) => {
     if (filterActive && !selectedChannelIds.has(v.channelId)) return false;
-    if (range !== "all") {
-      const d = getDaysAgo(v);
-      if (d === null) return false;
-      if (range === "lt10" && !(d < 10)) return false;
-      if (range === "10to30" && !(d >= 10 && d < 30)) return false;
-      if (range === "gt30" && !(d >= 30)) return false;
-    }
     // Lọc theo nhóm cấp 2 của "Lượt xem" (Thất bại/Bình thường/Tiềm năng/Top View).
     if (selectedViewGroups.size > 0) {
       const g = classifyViewRating(v.viewCount);
@@ -917,6 +903,7 @@ function applyFilters() {
   baseVideos = allVideos.filter(passesBase);
   filteredVideos = baseVideos.filter((v) => {
     if (selectedChannelGroups.size > 0 && !selectedChannelGroups.has(classifyChannelGroup(v.subscriberCount).cls)) return false;
+    if (selectedTimeRanges.size > 0 && !selectedTimeRanges.has(timeBucket(v))) return false;
     if (engagementOnly) {
       const r = getEngagementRate(v);
       if (r === null || !(r > 0.01)) return false;
@@ -999,8 +986,6 @@ function renderTableHeader() {
       // chế độ sắp xếp kết hợp (nếu đang bật) để tránh gây khó hiểu (vừa tích
       // nhiều biến trong ô "Chọn biến" vừa bấm cột lại ra kết quả khác nhau).
       selectedSortVars = [];
-      renderMetricFilterList();
-      updateMetricFilterLabel();
       els.sortField.value = field;
       sortField = field;
       applyFilters();
@@ -1034,6 +1019,20 @@ function renderTable() {
 // ---------- Tóm tắt nhóm kênh - vì cột "Nhóm kênh" giờ hiển thị cố định nên thanh
 // này cũng luôn hiện khi có nhiều hơn 1 kênh trong dữ liệu đang lọc (tích chọn
 // nhiều kênh -> tự động tập hợp và hiển thị số kênh theo từng nhóm). ----------
+// Nhóm thời gian theo số ngày kể từ khi đăng: <10 | 10-29 | >=30
+const TIME_RANGE_OPTIONS = [
+  { cls: "lt10", label: "Dưới 10 ngày" },
+  { cls: "10to30", label: "Từ 10 - 30 ngày" },
+  { cls: "gt30", label: "Trên 30 ngày" },
+];
+function timeBucket(v) {
+  const d = getDaysAgo(v);
+  if (d === null) return null;
+  if (d < 10) return "lt10";
+  if (d < 30) return "10to30";
+  return "gt30";
+}
+
 function renderChannelGroupSummary() {
   // Đếm số kênh theo nhóm trên tập "baseVideos" (chưa áp chip) để chip luôn ổn định.
   const channelSubs = new Map();
@@ -1054,6 +1053,16 @@ function renderChannelGroupSummary() {
     return r !== null && r > 0.01;
   }).length;
 
+  const timeCounts = { lt10: 0, "10to30": 0, gt30: 0 };
+  for (const v of baseVideos) {
+    const b = timeBucket(v);
+    if (b) timeCounts[b]++;
+  }
+  const timeChips = TIME_RANGE_OPTIONS.map((o) => {
+    const active = selectedTimeRanges.has(o.cls) ? " is-active" : "";
+    return `<button type="button" class="channel-group-badge channel-group-badge--time channel-group-badge--filter${active}" data-time="${o.cls}" title="Chỉ hiện video đăng trong khoảng này (bấm lại để bỏ lọc)">${o.label} · ${fmtNumber(timeCounts[o.cls])}</button>`;
+  }).join("");
+
   const groupChips = Object.entries(counts)
     .filter(([cls, n]) => cls !== "unknown" || n > 0)
     .map(([cls, n]) => {
@@ -1067,7 +1076,9 @@ function renderChannelGroupSummary() {
     `<span class="channel-group-summary__label">Nhóm kênh (${channelSubs.size} kênh):</span>` +
     groupChips +
     `<span class="channel-group-summary__sep"></span>` +
-    engageChip;
+    engageChip +
+    `<span class="channel-group-summary__sep"></span>` +
+    timeChips;
   els.channelGroupSummary.classList.add("visible");
 }
 
@@ -1076,6 +1087,10 @@ els.channelGroupSummary.addEventListener("click", (e) => {
   if (!chip) return;
   if (chip.dataset.engage) {
     engagementOnly = !engagementOnly;
+  } else if (chip.dataset.time) {
+    const t = chip.dataset.time;
+    if (selectedTimeRanges.has(t)) selectedTimeRanges.delete(t);
+    else selectedTimeRanges.add(t);
   } else {
     const g = chip.dataset.group;
     if (selectedChannelGroups.has(g)) selectedChannelGroups.delete(g);
@@ -1157,104 +1172,6 @@ els.tbody.addEventListener("mouseout", (e) => {
   if (el && !el.contains(e.relatedTarget)) hideTitleTip();
 });
 window.addEventListener("scroll", hideTitleTip, true);
-
-// ---------- Chọn biến để sắp xếp kết hợp (không giới hạn số lượng) ----------
-// Ô này có 2 cấp:
-//  - Cấp 1: các biến để SẮP XẾP (selectedSortVars).
-//  - Cấp 2: nằm thụt vào ngay dưới "Lượt xem" và "Nhóm kênh" - dùng để LỌC dữ
-//    liệu theo nhóm (selectedViewGroups / selectedChannelGroups). Tích bất kỳ
-//    nhóm cấp 2 nào thì bảng CHỈ hiện video thuộc (các) nhóm đó; bỏ tích hết =
-//    hiện tất cả. Nhóm cấp 2 độc lập với ô tích của biến cấp 1 (tích nhóm cấp 2
-//    không tự tích/bỏ tích biến cấp 1 và ngược lại).
-// Cả 4 cột biến (View/giờ, Lịch sử đăng, Tương tác, Nhóm kênh) luôn hiển thị
-// sẵn trong bảng bất kể có được tích ở đây hay không.
-
-function renderSubGroupItems(kind, options, selectedSet) {
-  return options
-    .map(
-      (o) => `
-    <div class="channel-filter__item channel-filter__item--sub" data-sub-kind="${kind}" data-sub="${o.cls}">
-      <input type="checkbox" data-sub-kind="${kind}" value="${o.cls}" ${selectedSet.has(o.cls) ? "checked" : ""} />
-      <span>${escapeHtml(o.label)}</span>
-    </div>`
-    )
-    .join("");
-}
-
-function renderMetricFilterList() {
-  const prevScroll = els.metricFilterList.scrollTop;
-
-  els.metricFilterList.innerHTML = ALL_SORT_VARS.map(({ key, label }) => {
-    const checked = selectedSortVars.includes(key);
-    let subHtml = "";
-    if (key === "viewCount") subHtml = renderSubGroupItems("view", VIEW_GROUP_OPTIONS, selectedViewGroups);
-    return `
-    <div class="channel-filter__item" data-key="${key}">
-      <input type="checkbox" data-sort-var="1" value="${key}" ${checked ? "checked" : ""} />
-      <span>${escapeHtml(label)}</span>
-    </div>${subHtml}`;
-  }).join("");
-
-  els.metricFilterList.scrollTop = prevScroll;
-
-  // Cấp 1: chọn biến để sắp xếp.
-  els.metricFilterList.querySelectorAll("input[data-sort-var]").forEach((cb) => {
-    cb.addEventListener("change", () => {
-      if (cb.checked) {
-        if (!selectedSortVars.includes(cb.value)) selectedSortVars.push(cb.value);
-      } else {
-        selectedSortVars = selectedSortVars.filter((k) => k !== cb.value);
-      }
-      updateMetricFilterLabel();
-      renderMetricFilterList();
-      applyFilters();
-    });
-  });
-
-  // Cấp 2: chọn nhóm để lọc dữ liệu.
-  els.metricFilterList.querySelectorAll("input[data-sub-kind]").forEach((cb) => {
-    cb.addEventListener("change", () => {
-      const set = selectedViewGroups;
-      if (cb.checked) set.add(cb.value);
-      else set.delete(cb.value);
-      updateMetricFilterLabel();
-      renderMetricFilterList();
-      applyFilters();
-    });
-  });
-
-  // Bấm vào bất kỳ chỗ nào trên dòng (cấp 1 hoặc cấp 2) cũng đổi trạng thái ô tích.
-  els.metricFilterList.querySelectorAll(".channel-filter__item").forEach((item) => {
-    item.addEventListener("click", (e) => {
-      if (e.target.tagName === "INPUT") return;
-      const cb = item.querySelector('input[type="checkbox"]');
-      cb.checked = !cb.checked;
-      cb.dispatchEvent(new Event("change"));
-    });
-  });
-}
-
-function updateMetricFilterLabel() {
-  const parts = [];
-  if (selectedSortVars.length > 0) parts.push(`Sắp xếp theo ${selectedSortVars.length} biến`);
-  const groupCount = selectedViewGroups.size;
-  if (groupCount > 0) parts.push(`Lọc ${groupCount} nhóm`);
-  els.metricFilterLabel.textContent = parts.length ? parts.join(" · ") : "Chọn biến sắp xếp";
-}
-
-function toggleMetricPanel(forceOpen) {
-  const isOpen = els.metricFilterWrap.classList.contains("open");
-  const shouldOpen = forceOpen !== undefined ? forceOpen : !isOpen;
-  els.metricFilterWrap.classList.toggle("open", shouldOpen);
-}
-
-els.metricFilterBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  toggleMetricPanel();
-});
-
-renderMetricFilterList();
-updateMetricFilterLabel();
 
 // ---------- Xuất Excel ----------
 
@@ -1599,14 +1516,11 @@ function closeModal() {
 // ---------- Events ----------
 
 els.search.addEventListener("input", applyFilters);
-els.dateRangeFilter.addEventListener("change", applyFilters);
 
 els.sortField.addEventListener("change", () => {
   // Đổi ô "Sắp xếp" đơn = thoát chế độ sắp xếp kết hợp, giống hành vi khi bấm
   // thẳng vào 1 cột trong bảng (xem renderTableHeader).
   selectedSortVars = [];
-  renderMetricFilterList();
-  updateMetricFilterLabel();
   sortField = els.sortField.value;
   applyFilters();
 });
