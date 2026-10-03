@@ -774,7 +774,6 @@ select.fetch-trigger__input {
 col.cg-video { width: 30%; }
 col.cg-channel { width: 16%; }
 col.cg-num { width: 9%; }
-col.cg-translate { width: 17%; }
 
 .board-table thead th {
   text-align: left;
@@ -1738,9 +1737,8 @@ thead .col-num,
 /* ---- Thu nhỏ phông chữ bảng để không bị cắt/đè nội dung ---- */
 .board-table { min-width: 1500px; font-size: 12.5px; }
 
-/* Tổng độ rộng cột = 100%: video 20 + dịch 14 + kênh 10 + 9 cột số x 6.2 */
-col.cg-video { width: 20%; }
-col.cg-translate { width: 14%; }
+/* Tổng độ rộng cột = 100%: video 34 + kênh 10 + 9 cột số x 6.2 */
+col.cg-video { width: 34%; }
 col.cg-channel { width: 10%; }
 col.cg-num { width: 6.2%; }
 
@@ -1761,3 +1759,15 @@ col.cg-num { width: 6.2%; }
 .board-table .channel-cell { font-size: 12px; gap: 8px; }
 .board-table .title-translate { font-size: 12px; line-height: 1.4; }
 .board-table .channel-group-badge { font-size: 10.5px; padding: 3px 8px; white-space: nowrap; }
+
+/* ---- Tooltip bản dịch tiêu đề (rê chuột vào tiêu đề video) ---- */
+.board-table .video-cell__title { cursor: help; }
+.title-tooltip {
+  position: fixed; z-index: 1000; max-width: 360px; padding: 9px 12px;
+  font-size: 12.5px; line-height: 1.45; color: var(--text);
+  background: var(--panel-raised); border: 1px solid var(--teal); border-radius: 10px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5); pointer-events: none;
+  opacity: 0; visibility: hidden; transition: opacity .12s;
+}
+.title-tooltip.visible { opacity: 1; visibility: visible; }
+.title-tooltip--pending { color: var(--text-muted); font-style: italic; }
