@@ -201,6 +201,6 @@ ngày ngay trong Google Apps Script.
 - Kênh đầu vào là kênh Tiếng Anh: bình luận được dịch với nguồn `en`, trợ lý AI được báo dữ liệu là Tiếng Anh và trả lời bằng Tiếng Việt.
 - Ô "Chọn biến sắp xếp" không còn "Nhóm kênh" (cột trong bảng vẫn giữ).
 - Thanh "Nhóm kênh" phía trên bảng: bấm chip Kênh mới / nhỏ / lớn để lọc bảng (chọn nhiều chip được, bấm lại để bỏ). Chip "Tương tác > 1%" chỉ giữ video có (thích + bình luận) / view > 1%.
-- Cột "Dịch": tự động dịch tiêu đề sang Tiếng Việt cho các dòng đang hiện (và sắp cuộn tới), không cần bấm. Nếu một dòng lỗi mạng sẽ có nút "thử lại". Bản dịch đã có được đưa vào file Excel.
+- Dịch tiêu đề: không còn cột "Dịch". Rê chuột vào tiêu đề video trong bảng sẽ hiện khung chứa bản dịch Tiếng Việt (dịch tự động, lưu lại để lần sau hiện ngay).
 - "Khoảng thời gian": Tất cả / Dưới 10 ngày (0-9) / Từ 10 - 30 ngày (10-29) / Trên 30 ngày (từ 30 trở lên). Tính theo số ngày kể từ khi đăng.
 - Đã sửa lỗi `escapeHtml` khai báo trùng khiến dấu `"` không được escape trong thuộc tính HTML.
