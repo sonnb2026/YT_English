@@ -305,7 +305,7 @@ const BASE_COLUMNS = [
     headClass: "col-translate",
     colClass: "cg-translate",
     sortField: null,
-    headTitle: "Dịch tiêu đề sang Tiếng Việt. Bấm từng nút, hoặc bấm tiêu đề cột để dịch 30 video đầu trong bảng.",
+    headTitle: "Tiêu đề video được tự động dịch sang Tiếng Việt khi hiện trong bảng.",
     renderCell: (v) => renderTranslateCell(v),
     excelValue: (v) => titleTranslations.get(v.videoId) || "",
   },
@@ -1002,9 +1002,6 @@ function renderTableHeader() {
     })
     .join("");
 
-  const thTranslate = els.videoTableHeadRow.querySelector("th.col-translate");
-  if (thTranslate) thTranslate.addEventListener("click", () => translateVisibleTitles());
-
   els.videoTableHeadRow.querySelectorAll("th[data-field]").forEach((th) => {
     th.addEventListener("click", () => {
       const field = th.dataset.field;
@@ -1041,6 +1038,8 @@ function renderTable() {
   els.tbody.querySelectorAll(".channel-cell").forEach((cell) => {
     cell.addEventListener("click", () => openChannelModal(cell.dataset.channelId));
   });
+
+  observeTranslateCells();
 }
 
 // ---------- Tóm tắt nhóm kênh - vì cột "Nhóm kênh" giờ hiển thị cố định nên thanh
@@ -1106,35 +1105,83 @@ async function translateText(text) {
 
 function renderTranslateCell(v) {
   const t = titleTranslations.get(v.videoId);
-  if (t) return `<td data-translate-cell="${v.videoId}"><div class="title-translate">${escapeHtml(t)}</div></td>`;
-  return `<td data-translate-cell="${v.videoId}"><button type="button" class="title-translate-btn" data-video-id="${v.videoId}">Dịch</button></td>`;
+  const inner = t
+    ? `<div class="title-translate">${escapeHtml(t)}</div>`
+    : `<div class="title-translate title-translate--pending">Đang dịch...</div>`;
+  return `<td data-translate-cell="${v.videoId}">${inner}</td>`;
+}
+
+// Tự động dịch: chỉ dịch các dòng đang hiện (hoặc sắp cuộn tới) để không gọi hàng nghìn request một lúc.
+const translateQueue = [];
+let translateActive = 0;
+const TRANSLATE_CONCURRENCY = 4;
+let translateObserver = null;
+
+function setTranslateCell(videoId, html) {
+  const cell = els.tbody.querySelector(`[data-translate-cell="${videoId}"]`);
+  if (cell) cell.innerHTML = html;
 }
 
 async function translateTitleFor(videoId) {
   const v = allVideos.find((x) => x.videoId === videoId);
-  const cell = els.tbody.querySelector(`[data-translate-cell="${videoId}"]`);
   if (!v || titleTranslations.has(videoId)) return;
-  const btn = cell && cell.querySelector("button");
-  if (btn) { btn.disabled = true; btn.textContent = "Đang dịch..."; }
   try {
-    titleTranslations.set(videoId, await translateText(v.title));
-    if (cell) cell.innerHTML = `<div class="title-translate">${escapeHtml(titleTranslations.get(videoId))}</div>`;
+    const text = await translateText(v.title);
+    titleTranslations.set(videoId, text);
+    setTranslateCell(videoId, `<div class="title-translate">${escapeHtml(text)}</div>`);
   } catch (err) {
-    if (btn) { btn.disabled = false; btn.textContent = "Lỗi - thử lại"; }
+    setTranslateCell(videoId, `<button type="button" class="title-translate-btn" data-video-id="${videoId}">Lỗi dịch - thử lại</button>`);
   }
+}
+
+function pumpTranslateQueue() {
+  while (translateActive < TRANSLATE_CONCURRENCY && translateQueue.length) {
+    const id = translateQueue.shift();
+    translateActive++;
+    translateTitleFor(id).finally(() => {
+      translateActive--;
+      pumpTranslateQueue();
+    });
+  }
+}
+
+function enqueueTranslate(videoId) {
+  if (titleTranslations.has(videoId) || translateQueue.includes(videoId)) return;
+  translateQueue.push(videoId);
+  pumpTranslateQueue();
+}
+
+// Gọi sau mỗi lần vẽ lại bảng.
+function observeTranslateCells() {
+  if (translateObserver) translateObserver.disconnect();
+  translateQueue.length = 0; // bỏ hàng đợi cũ, bảng đã đổi
+  const cells = els.tbody.querySelectorAll("[data-translate-cell]");
+  if (!("IntersectionObserver" in window)) {
+    cells.forEach((c) => enqueueTranslate(c.dataset.translateCell));
+    return;
+  }
+  translateObserver = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        translateObserver.unobserve(e.target);
+        enqueueTranslate(e.target.dataset.translateCell);
+      }
+    },
+    { rootMargin: "600px 0px" }
+  );
+  cells.forEach((c) => {
+    if (!titleTranslations.has(c.dataset.translateCell)) translateObserver.observe(c);
+  });
 }
 
 els.tbody.addEventListener("click", (e) => {
   const btn = e.target.closest(".title-translate-btn");
-  if (btn) translateTitleFor(btn.dataset.videoId);
+  if (btn) {
+    setTranslateCell(btn.dataset.videoId, `<div class="title-translate title-translate--pending">Đang dịch...</div>`);
+    enqueueTranslate(btn.dataset.videoId);
+  }
 });
-
-// Bấm tiêu đề cột "Dịch" = dịch 30 video chưa dịch đầu tiên trong bảng (4 request song song).
-async function translateVisibleTitles(limit = 30) {
-  const queue = filteredVideos.filter((v) => !titleTranslations.has(v.videoId)).slice(0, limit).map((v) => v.videoId);
-  const worker = async () => { while (queue.length) await translateTitleFor(queue.shift()); };
-  await Promise.all([worker(), worker(), worker(), worker()]);
-}
 
 // ---------- Chọn biến để sắp xếp kết hợp (không giới hạn số lượng) ----------
 // Ô này có 2 cấp:
