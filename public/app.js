@@ -292,22 +292,12 @@ const BASE_COLUMNS = [
             <img src="${v.thumbnail}" alt="" loading="lazy" />
           </a>
           <div class="video-cell__info">
-            <div class="video-cell__title">${renderLiveBadge(v)}${escapeHtml(v.title)}</div>
+            <div class="video-cell__title" data-title-id="${v.videoId}">${renderLiveBadge(v)}${escapeHtml(v.title)}</div>
             <button class="comments-btn" data-video-id="${v.videoId}">💬 Xem bình luận</button>
           </div>
         </div>
       </td>`,
     excelValue: (v) => v.title || "",
-  },
-  {
-    key: "translate",
-    label: "Dịch",
-    headClass: "col-translate",
-    colClass: "cg-translate",
-    sortField: null,
-    headTitle: "Tiêu đề video được tự động dịch sang Tiếng Việt khi hiện trong bảng.",
-    renderCell: (v) => renderTranslateCell(v),
-    excelValue: (v) => titleTranslations.get(v.videoId) || "",
   },
   {
     key: "channel",
@@ -1039,7 +1029,6 @@ function renderTable() {
     cell.addEventListener("click", () => openChannelModal(cell.dataset.channelId));
   });
 
-  observeTranslateCells();
 }
 
 // ---------- Tóm tắt nhóm kênh - vì cột "Nhóm kênh" giờ hiển thị cố định nên thanh
@@ -1103,85 +1092,71 @@ async function translateText(text) {
   return json[0].map((chunk) => chunk[0]).join("");
 }
 
-function renderTranslateCell(v) {
-  const t = titleTranslations.get(v.videoId);
-  const inner = t
-    ? `<div class="title-translate">${escapeHtml(t)}</div>`
-    : `<div class="title-translate title-translate--pending">Đang dịch...</div>`;
-  return `<td data-translate-cell="${v.videoId}">${inner}</td>`;
+// ---------- Rê chuột vào tiêu đề video -> hiện bản dịch Tiếng Việt ----------
+let titleTipEl = null;
+let titleTipFor = null; // videoId đang được rê chuột
+
+function getTitleTip() {
+  if (!titleTipEl) {
+    titleTipEl = document.createElement("div");
+    titleTipEl.className = "title-tooltip";
+    document.body.appendChild(titleTipEl);
+  }
+  return titleTipEl;
 }
 
-// Tự động dịch: chỉ dịch các dòng đang hiện (hoặc sắp cuộn tới) để không gọi hàng nghìn request một lúc.
-const translateQueue = [];
-let translateActive = 0;
-const TRANSLATE_CONCURRENCY = 4;
-let translateObserver = null;
-
-function setTranslateCell(videoId, html) {
-  const cell = els.tbody.querySelector(`[data-translate-cell="${videoId}"]`);
-  if (cell) cell.innerHTML = html;
+function moveTitleTip(e) {
+  const tip = getTitleTip();
+  const pad = 14;
+  let x = e.clientX + pad;
+  let y = e.clientY + pad + 6;
+  if (x + tip.offsetWidth > window.innerWidth - 8) x = Math.max(8, window.innerWidth - tip.offsetWidth - 8);
+  if (y + tip.offsetHeight > window.innerHeight - 8) y = Math.max(8, e.clientY - tip.offsetHeight - pad);
+  tip.style.left = x + "px";
+  tip.style.top = y + "px";
 }
 
-async function translateTitleFor(videoId) {
+async function showTitleTranslation(videoId, e) {
+  const tip = getTitleTip();
+  titleTipFor = videoId;
+  const cached = titleTranslations.get(videoId);
+  tip.textContent = cached || "Đang dịch...";
+  tip.classList.toggle("title-tooltip--pending", !cached);
+  tip.classList.add("visible");
+  moveTitleTip(e);
+  if (cached) return;
   const v = allVideos.find((x) => x.videoId === videoId);
-  if (!v || titleTranslations.has(videoId)) return;
+  if (!v) return;
   try {
     const text = await translateText(v.title);
     titleTranslations.set(videoId, text);
-    setTranslateCell(videoId, `<div class="title-translate">${escapeHtml(text)}</div>`);
+    if (titleTipFor === videoId) {
+      tip.textContent = text;
+      tip.classList.remove("title-tooltip--pending");
+    }
   } catch (err) {
-    setTranslateCell(videoId, `<button type="button" class="title-translate-btn" data-video-id="${videoId}">Lỗi dịch - thử lại</button>`);
+    if (titleTipFor === videoId) tip.textContent = "Không dịch được, rê chuột lại để thử lại.";
   }
 }
 
-function pumpTranslateQueue() {
-  while (translateActive < TRANSLATE_CONCURRENCY && translateQueue.length) {
-    const id = translateQueue.shift();
-    translateActive++;
-    translateTitleFor(id).finally(() => {
-      translateActive--;
-      pumpTranslateQueue();
-    });
-  }
+function hideTitleTip() {
+  titleTipFor = null;
+  if (titleTipEl) titleTipEl.classList.remove("visible");
 }
 
-function enqueueTranslate(videoId) {
-  if (titleTranslations.has(videoId) || translateQueue.includes(videoId)) return;
-  translateQueue.push(videoId);
-  pumpTranslateQueue();
-}
-
-// Gọi sau mỗi lần vẽ lại bảng.
-function observeTranslateCells() {
-  if (translateObserver) translateObserver.disconnect();
-  translateQueue.length = 0; // bỏ hàng đợi cũ, bảng đã đổi
-  const cells = els.tbody.querySelectorAll("[data-translate-cell]");
-  if (!("IntersectionObserver" in window)) {
-    cells.forEach((c) => enqueueTranslate(c.dataset.translateCell));
-    return;
-  }
-  translateObserver = new IntersectionObserver(
-    (entries) => {
-      for (const e of entries) {
-        if (!e.isIntersecting) continue;
-        translateObserver.unobserve(e.target);
-        enqueueTranslate(e.target.dataset.translateCell);
-      }
-    },
-    { rootMargin: "600px 0px" }
-  );
-  cells.forEach((c) => {
-    if (!titleTranslations.has(c.dataset.translateCell)) translateObserver.observe(c);
-  });
-}
-
-els.tbody.addEventListener("click", (e) => {
-  const btn = e.target.closest(".title-translate-btn");
-  if (btn) {
-    setTranslateCell(btn.dataset.videoId, `<div class="title-translate title-translate--pending">Đang dịch...</div>`);
-    enqueueTranslate(btn.dataset.videoId);
-  }
+els.tbody.addEventListener("mouseover", (e) => {
+  const el = e.target.closest(".video-cell__title");
+  if (!el || el.contains(e.relatedTarget)) return;
+  showTitleTranslation(el.dataset.titleId, e);
 });
+els.tbody.addEventListener("mousemove", (e) => {
+  if (titleTipFor && e.target.closest(".video-cell__title")) moveTitleTip(e);
+});
+els.tbody.addEventListener("mouseout", (e) => {
+  const el = e.target.closest(".video-cell__title");
+  if (el && !el.contains(e.relatedTarget)) hideTitleTip();
+});
+window.addEventListener("scroll", hideTitleTip, true);
 
 // ---------- Chọn biến để sắp xếp kết hợp (không giới hạn số lượng) ----------
 // Ô này có 2 cấp:
