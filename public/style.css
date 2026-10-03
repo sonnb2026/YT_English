@@ -1733,4 +1733,4 @@ thead .col-num,
 .title-translate-btn { font: inherit; font-size: 11.5px; padding: 3px 10px; border-radius: 999px; cursor: pointer;
   color: var(--teal); background: var(--teal-soft); border: 1px solid rgba(34, 211, 238, 0.35); }
 .title-translate-btn:disabled { opacity: .6; cursor: default; }
-.board-table thead th.col-translate { cursor: pointer; }
+.title-translate--pending { color: var(--text-faint); font-style: italic; }
