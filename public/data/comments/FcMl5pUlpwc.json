@@ -19,8 +19,17 @@
       "text": "Great work on tourism",
       "likeCount": 0,
       "publishedAt": "2026-10-03T02:09:54Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgxEW-Yrzbr6HZBWLxl4AaABAg.AbUSuZ_zCqmAbZYUm6X6UN",
+          "author": "@raulcastaneda2435",
+          "authorImage": "https://yt3.ggpht.com/ytc/AIdro_ktgf3psRkAgKqgtBrHqhFCpTwn8CtlBGMPzkRqQ28gVAm_OArHXAgXv_ztPUnBWg1sIA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "How disgusting",
+          "likeCount": 0,
+          "publishedAt": "2026-10-05T01:34:52Z"
+        }
+      ]
     },
     {
       "id": "UgxlNaTjWGLLGJTQRjZ4AaABAg",
