@@ -258,7 +258,7 @@ const CHANNEL_GROUP_OPTIONS = [
 // Rỗng = không lọc (hiện tất cả). Có ≥1 phần tử = chỉ hiện video thuộc các nhóm đã chọn.
 let selectedViewGroups = new Set();
 let selectedChannelGroups = new Set(); // lọc bằng chip "Nhóm kênh" phía trên bảng
-let selectedTimeRanges = new Set(); // chip thời gian: lt10 | 10to30 | gt30
+let selectedTimeRanges = new Set(); // chip thời gian: lt2 | lt10 | 10to30 | gt30
 let engagementOnly = false; // chip "Tương tác" = chỉ video có tỷ lệ tương tác > 1%
 let baseVideos = [];
 const titleTranslations = new Map(); // videoId -> tiêu đề đã dịch
@@ -903,7 +903,7 @@ function applyFilters() {
   baseVideos = allVideos.filter(passesBase);
   filteredVideos = baseVideos.filter((v) => {
     if (selectedChannelGroups.size > 0 && !selectedChannelGroups.has(classifyChannelGroup(v.subscriberCount).cls)) return false;
-    if (selectedTimeRanges.size > 0 && !selectedTimeRanges.has(timeBucket(v))) return false;
+    if (selectedTimeRanges.size > 0 && ![...selectedTimeRanges].some((c) => inTimeRange(v, c))) return false;
     if (engagementOnly) {
       const r = getEngagementRate(v);
       if (r === null || !(r > 0.01)) return false;
@@ -1019,18 +1019,19 @@ function renderTable() {
 // ---------- Tóm tắt nhóm kênh - vì cột "Nhóm kênh" giờ hiển thị cố định nên thanh
 // này cũng luôn hiện khi có nhiều hơn 1 kênh trong dữ liệu đang lọc (tích chọn
 // nhiều kênh -> tự động tập hợp và hiển thị số kênh theo từng nhóm). ----------
-// Nhóm thời gian theo số ngày kể từ khi đăng: <10 | 10-29 | >=30
+// Chip thời gian theo số ngày kể từ khi đăng. Các khoảng có thể chồng nhau
+// (video 0-2 ngày cũng nằm trong "Dưới 10 ngày"); chọn nhiều chip = hợp của các khoảng.
 const TIME_RANGE_OPTIONS = [
-  { cls: "lt10", label: "Dưới 10 ngày" },
-  { cls: "10to30", label: "Từ 10 - 30 ngày" },
-  { cls: "gt30", label: "Trên 30 ngày" },
+  { cls: "lt2", label: "Dưới 2 ngày", test: (d) => d <= 2 }, // 0-2 ngày
+  { cls: "lt10", label: "Dưới 10 ngày", test: (d) => d < 10 },
+  { cls: "10to30", label: "Từ 10 - 30 ngày", test: (d) => d >= 10 && d < 30 },
+  { cls: "gt30", label: "Trên 30 ngày", test: (d) => d >= 30 },
 ];
-function timeBucket(v) {
+function inTimeRange(v, cls) {
   const d = getDaysAgo(v);
-  if (d === null) return null;
-  if (d < 10) return "lt10";
-  if (d < 30) return "10to30";
-  return "gt30";
+  if (d === null) return false;
+  const opt = TIME_RANGE_OPTIONS.find((o) => o.cls === cls);
+  return !!opt && opt.test(d);
 }
 
 function renderChannelGroupSummary() {
@@ -1053,11 +1054,8 @@ function renderChannelGroupSummary() {
     return r !== null && r > 0.01;
   }).length;
 
-  const timeCounts = { lt10: 0, "10to30": 0, gt30: 0 };
-  for (const v of baseVideos) {
-    const b = timeBucket(v);
-    if (b) timeCounts[b]++;
-  }
+  const timeCounts = {};
+  for (const o of TIME_RANGE_OPTIONS) timeCounts[o.cls] = baseVideos.filter((v) => inTimeRange(v, o.cls)).length;
   const timeChips = TIME_RANGE_OPTIONS.map((o) => {
     const active = selectedTimeRanges.has(o.cls) ? " is-active" : "";
     return `<button type="button" class="channel-group-badge channel-group-badge--time channel-group-badge--filter${active}" data-time="${o.cls}" title="Chỉ hiện video đăng trong khoảng này (bấm lại để bỏ lọc)">${o.label} · ${fmtNumber(timeCounts[o.cls])}</button>`;
