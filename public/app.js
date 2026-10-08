@@ -75,9 +75,11 @@ const els = {
   exportExcelBtn: document.getElementById("exportExcelBtn"),
 };
 
+// Tạo bộ định dạng 1 lần: new Intl.NumberFormat() mỗi lần gọi rất chậm (~20µs x hàng nghìn ô mỗi lần vẽ bảng).
+const NUMBER_FMT = new Intl.NumberFormat("vi-VN");
 function fmtNumber(n) {
   if (n === null || n === undefined) return "–";
-  return new Intl.NumberFormat("vi-VN").format(n);
+  return NUMBER_FMT.format(n);
 }
 
 // viewsPerHourSource is "recent" (real delta vs. last fetch - reliable velocity)
@@ -101,7 +103,8 @@ function fmtViewsPerHour(v) {
 function fmtDate(iso) {
   if (!iso) return "–";
   const d = new Date(iso);
-  return d.toLocaleDateString("vi-VN", { year: "numeric", month: "2-digit", day: "2-digit" });
+  // Tự ghép dd/mm/yyyy (giờ địa phương) - nhanh hơn toLocaleDateString ~100 lần, kết quả giống hệt.
+  return String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0") + "/" + d.getFullYear();
 }
 
 function fmtDateTime(iso) {
@@ -284,7 +287,7 @@ const BASE_COLUMNS = [
       <td>
         <div class="video-cell">
           <a class="video-cell__thumb-link" href="https://www.youtube.com/watch?v=${v.videoId}" target="_blank" rel="noopener" title="Mở video trên YouTube">
-            <img src="${v.thumbnail}" alt="" loading="lazy" />
+            <img src="${v.thumbnail}" alt="" loading="lazy" decoding="async" />
           </a>
           <div class="video-cell__info">
             <div class="video-cell__title" data-title-id="${v.videoId}">${renderLiveBadge(v)}${escapeHtml(v.title)}</div>
@@ -302,7 +305,7 @@ const BASE_COLUMNS = [
     sortField: null,
     renderCell: (v) => `
       <td class="channel-cell" data-channel-id="${v.channelId}">
-        <img class="channel-cell__avatar" src="${v.channelThumbnail}" alt="" loading="lazy" />
+        <img class="channel-cell__avatar" src="${v.channelThumbnail}" alt="" loading="lazy" decoding="async" />
         <span>${escapeHtml(v.channelTitle)}</span>
       </td>`,
     excelValue: (v) => v.channelTitle || "",
@@ -993,28 +996,75 @@ function renderTableHeader() {
   });
 }
 
+// Chỉ vẽ ROW_CHUNK dòng đầu, các dòng sau được thêm khi cuộn gần tới cuối bảng.
+// Vẽ cả 700+ dòng (~17.000 phần tử DOM) mỗi lần lọc/gõ tìm kiếm là nguyên nhân chính gây đơ.
+const ROW_CHUNK = 80;
+let renderedCount = 0;
+let moreObserver = null;
+let renderedColumns = [];
+
+function rowsHtml(from, to) {
+  return filteredVideos
+    .slice(from, to)
+    .map((v) => `<tr>${renderedColumns.map((c) => c.renderCell(v)).join("")}</tr>`)
+    .join("");
+}
+
+function moreRowHtml() {
+  if (renderedCount >= filteredVideos.length) return "";
+  return `<tr class="more-row"><td colspan="${renderedColumns.length}" class="more-row__cell">Đang hiển thị ${fmtNumber(renderedCount)}/${fmtNumber(filteredVideos.length)} video - cuộn xuống để xem thêm <button type="button" class="more-row__btn">Hiện thêm</button></td></tr>`;
+}
+
+function loadMoreRows() {
+  const old = els.tbody.querySelector(".more-row");
+  if (!old || renderedCount >= filteredVideos.length) return;
+  const next = Math.min(renderedCount + ROW_CHUNK, filteredVideos.length);
+  const html = rowsHtml(renderedCount, next);
+  renderedCount = next;
+  old.insertAdjacentHTML("beforebegin", html);
+  old.remove();
+  const more = moreRowHtml();
+  if (more) {
+    els.tbody.insertAdjacentHTML("beforeend", more);
+    observeMoreRow();
+  }
+}
+
+function observeMoreRow() {
+  if (moreObserver) moreObserver.disconnect();
+  const row = els.tbody.querySelector(".more-row");
+  if (!row) return;
+  if (!("IntersectionObserver" in window)) { loadMoreRows(); return; }
+  moreObserver = new IntersectionObserver(
+    (entries) => { if (entries.some((e) => e.isIntersecting)) loadMoreRows(); },
+    { rootMargin: "900px 0px" }
+  );
+  moreObserver.observe(row);
+}
+
 function renderTable() {
   renderTableHeader();
-  const columns = getActiveColumns();
+  renderedColumns = getActiveColumns();
 
   if (!filteredVideos.length) {
-    els.tbody.innerHTML = `<tr><td colspan="${columns.length}" class="empty-state">Không có video phù hợp.</td></tr>`;
+    if (moreObserver) moreObserver.disconnect();
+    els.tbody.innerHTML = `<tr><td colspan="${renderedColumns.length}" class="empty-state">Không có video phù hợp.</td></tr>`;
     return;
   }
 
-  els.tbody.innerHTML = filteredVideos
-    .map((v) => `<tr>${columns.map((c) => c.renderCell(v)).join("")}</tr>`)
-    .join("");
-
-  els.tbody.querySelectorAll(".comments-btn").forEach((btn) => {
-    btn.addEventListener("click", () => openModal(btn.dataset.videoId));
-  });
-
-  els.tbody.querySelectorAll(".channel-cell").forEach((cell) => {
-    cell.addEventListener("click", () => openChannelModal(cell.dataset.channelId));
-  });
-
+  renderedCount = Math.min(ROW_CHUNK, filteredVideos.length);
+  els.tbody.innerHTML = rowsHtml(0, renderedCount) + moreRowHtml();
+  observeMoreRow();
 }
+
+// Gắn sự kiện 1 lần cho cả bảng (event delegation) thay vì gắn lại ~1.400 listener sau mỗi lần vẽ.
+els.tbody.addEventListener("click", (e) => {
+  const btn = e.target.closest(".comments-btn");
+  if (btn) return openModal(btn.dataset.videoId);
+  const cell = e.target.closest(".channel-cell");
+  if (cell) return openChannelModal(cell.dataset.channelId);
+  if (e.target.closest(".more-row__btn")) loadMoreRows();
+});
 
 // ---------- Tóm tắt nhóm kênh - vì cột "Nhóm kênh" giờ hiển thị cố định nên thanh
 // này cũng luôn hiện khi có nhiều hơn 1 kênh trong dữ liệu đang lọc (tích chọn
@@ -1513,7 +1563,11 @@ function closeModal() {
 
 // ---------- Events ----------
 
-els.search.addEventListener("input", applyFilters);
+let searchTimer = null;
+els.search.addEventListener("input", () => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(applyFilters, 250);
+});
 
 els.sortField.addEventListener("change", () => {
   // Đổi ô "Sắp xếp" đơn = thoát chế độ sắp xếp kết hợp, giống hành vi khi bấm
