@@ -48,40 +48,17 @@ html, body {
   overflow-x: hidden;
 }
 
-/* Living aurora backdrop - two soft blurred blobs drifting slowly */
-body::before,
-body::after {
+/* Nền aurora: 2 vệt sáng TĨNH bằng radial-gradient (trước đây là 2 khối filter: blur(110px) chuyển động
+   liên tục - rất nặng với máy yếu, làm giật khi cuộn bảng). */
+body::before {
   content: "";
   position: fixed;
-  width: 56vw;
-  height: 56vw;
-  max-width: 640px;
-  max-height: 640px;
-  border-radius: 50%;
-  filter: blur(110px);
-  opacity: 0.28;
+  inset: 0;
   z-index: -1;
   pointer-events: none;
-}
-body::before {
-  background: var(--amber);
-  top: -18%;
-  left: -12%;
-  animation: floatBlobA 24s ease-in-out infinite;
-}
-body::after {
-  background: var(--teal);
-  bottom: -20%;
-  right: -14%;
-  animation: floatBlobB 28s ease-in-out infinite;
-}
-@keyframes floatBlobA {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(50px, 70px) scale(1.08); }
-}
-@keyframes floatBlobB {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-60px, -50px) scale(1.05); }
+  background:
+    radial-gradient(520px circle at 6% 4%, rgba(255, 122, 82, 0.16), transparent 70%),
+    radial-gradient(560px circle at 96% 100%, rgba(34, 211, 238, 0.14), transparent 70%);
 }
 
 ::selection { background: var(--amber); color: #1a0e08; }
@@ -126,7 +103,6 @@ button, select, input { font-family: inherit; }
   z-index: 100;
   background: linear-gradient(90deg, var(--amber), var(--violet), var(--teal), var(--amber));
   background-size: 300% 100%;
-  animation: auroraSlide 8s linear infinite;
 }
 @keyframes auroraSlide {
   0% { background-position: 0% 0; }
@@ -252,7 +228,6 @@ button, select, input { font-family: inherit; }
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gradientShift 8s ease-in-out infinite;
 }
 @keyframes gradientShift {
   0%, 100% { background-position: 0% center; }
@@ -267,7 +242,6 @@ button, select, input { font-family: inherit; }
 
 .meta-chip {
   background: var(--panel-glass);
-  backdrop-filter: blur(10px);
   border: 1px solid var(--line-soft);
   border-radius: var(--radius-sm);
   padding: 11px 18px;
@@ -1783,3 +1757,11 @@ thead .col-num,
 .title-tooltip--pending { color: var(--text-muted); font-style: italic; }
 
 .channel-group-badge--time { color: #f9a8d4; background: rgba(244, 114, 182, 0.13); border-color: rgba(244, 114, 182, 0.35); }
+
+/* Dòng "hiện thêm" cuối bảng (vẽ bảng theo đợt) */
+.more-row__cell { text-align: center; color: var(--text-muted); font-size: 12px; padding: 16px 8px !important; }
+.more-row__btn { margin-left: 8px; font: inherit; font-size: 12px; padding: 4px 12px; border-radius: 999px; cursor: pointer;
+  color: var(--teal); background: var(--teal-soft); border: 1px solid rgba(34, 211, 238, 0.35); }
+
+/* Người dùng bật "giảm chuyển động" trong hệ điều hành: tắt hết hiệu ứng nền */
+@media (prefers-reduced-motion: reduce) { .cloud, .plane-fly { animation: none !important; } }
