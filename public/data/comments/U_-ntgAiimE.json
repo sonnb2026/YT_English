@@ -3,6 +3,16 @@
   "disabled": false,
   "comments": [
     {
+      "id": "UgwPybpTIO4qhdMfq8x4AaABAg",
+      "author": "@paulgraham3229",
+      "authorImage": "https://yt3.ggpht.com/ytc/AIdro_mG3HBKtLPIA_2sUXlugwm2P8HpFmzBHEZw6c5l2hRBqQ=s48-c-k-c0x00ffffff-no-rj",
+      "text": "VANCOUVER ISLAND",
+      "likeCount": 0,
+      "publishedAt": "2026-10-07T08:10:28Z",
+      "replyCount": 0,
+      "replies": []
+    },
+    {
       "id": "UgwPiADqve-sBdilfKZ4AaABAg",
       "author": "@georgeulrich3485",
       "authorImage": "https://yt3.ggpht.com/ytc/AIdro_mW0HX8nY-Aegy1UXDgfTB3j4snP03S3Xy5MBGZkW1hUbbYoGKtw-0B2eroA56mHZ8mFQ=s48-c-k-c0x00ffffff-no-rj",
@@ -27,20 +37,38 @@
       "author": "@AugustineHlaba-lq9or",
       "authorImage": "https://yt3.ggpht.com/ytc/AIdro_mIq3VHfPUrGhS9seKsJqeGzc2vC6doz0-nM2OENLkRxafGhMnaFzOjB0stCwcIPBngbw=s48-c-k-c0x00ffffff-no-rj",
       "text": "Watching from South Africa",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-10-04T13:52:58Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgxCUv3Zdu6b7Q_yWNB4AaABAg.AbYI9onvwqkAbe-FxNtl1j",
+          "author": "@Reallifeinsights.tv26",
+          "authorImage": "https://yt3.ggpht.com/xxFRoToxoEPU0jqZli8MDif3KYcq2Y58xLrT3i6u-mAOtFwS6qDk4MPR6Z8ycS7mqsr-WZTDpg=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Hello to South Africa! We're thrilled to have you watching with us!",
+          "likeCount": 0,
+          "publishedAt": "2026-10-07T04:22:28Z"
+        }
+      ]
     },
     {
       "id": "Ugy8Jw51F7T0Y9z1CiB4AaABAg",
       "author": "@abunur4741",
       "authorImage": "https://yt3.ggpht.com/ytc/AIdro_meYAh6NPkc3qZ9RQbztfozX2jknUqc69hcasQTLZa7CCWY6MHmzRI1I6I59gYFhEiQXA=s48-c-k-c0x00ffffff-no-rj",
       "text": "Watching from UK Manchester",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-10-04T11:37:36Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "Ugy8Jw51F7T0Y9z1CiB4AaABAg.AbY2fPgKzktAbe-YUJBQ4m",
+          "author": "@Reallifeinsights.tv26",
+          "authorImage": "https://yt3.ggpht.com/xxFRoToxoEPU0jqZli8MDif3KYcq2Y58xLrT3i6u-mAOtFwS6qDk4MPR6Z8ycS7mqsr-WZTDpg=s48-c-k-c0x00ffffff-no-rj",
+          "text": "A big hello to our viewer in Manchester! Appreciate the support!",
+          "likeCount": 0,
+          "publishedAt": "2026-10-07T04:24:59Z"
+        }
+      ]
     },
     {
       "id": "Ugyxsu9QuLFZ9fFh_mp4AaABAg",
