@@ -202,5 +202,5 @@ ngày ngay trong Google Apps Script.
 - Ô "Chọn biến sắp xếp" không còn "Nhóm kênh" (cột trong bảng vẫn giữ).
 - Thanh "Nhóm kênh" phía trên bảng: bấm chip Kênh mới / nhỏ / lớn để lọc bảng (chọn nhiều chip được, bấm lại để bỏ). Chip "Tương tác > 1%" chỉ giữ video có (thích + bình luận) / view > 1%.
 - Dịch tiêu đề: không còn cột "Dịch". Rê chuột vào tiêu đề video trong bảng sẽ hiện khung chứa bản dịch Tiếng Việt (dịch tự động, lưu lại để lần sau hiện ngay).
-- Không còn ô "Khoảng thời gian" và "Chọn biến sắp xếp". Chip thời gian nằm cùng dòng với chip nhóm kênh: Dưới 10 ngày (0-9) / Từ 10 - 30 ngày (10-29) / Trên 30 ngày (từ 30 trở lên). Bấm để lọc bảng, chọn nhiều chip được (hợp của các khoảng), bấm lại để bỏ.
+- Không còn ô "Khoảng thời gian" và "Chọn biến sắp xếp". Chip thời gian nằm cùng dòng với chip nhóm kênh: Dưới 2 ngày (0-2) / Dưới 10 ngày (0-9) / 0 - 30 ngày (0-30) / Từ 10 - 30 ngày (10-29) / Trên 30 ngày (từ 30 trở lên). Bấm để lọc bảng, chọn nhiều chip được (hợp của các khoảng), bấm lại để bỏ.
 - Đã sửa lỗi `escapeHtml` khai báo trùng khiến dấu `"` không được escape trong thuộc tính HTML.
