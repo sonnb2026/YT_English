@@ -261,7 +261,7 @@ const CHANNEL_GROUP_OPTIONS = [
 // Rỗng = không lọc (hiện tất cả). Có ≥1 phần tử = chỉ hiện video thuộc các nhóm đã chọn.
 let selectedViewGroups = new Set();
 let selectedChannelGroups = new Set(); // lọc bằng chip "Nhóm kênh" phía trên bảng
-let selectedTimeRanges = new Set(); // chip thời gian: lt2 | lt10 | 10to30 | gt30
+let selectedTimeRanges = new Set(); // chip thời gian: lt2 | lt10 | 0to30 | 10to30 | gt30
 let engagementOnly = false; // chip "Tương tác" = chỉ video có tỷ lệ tương tác > 1%
 let baseVideos = [];
 const titleTranslations = new Map(); // videoId -> tiêu đề đã dịch
@@ -1074,6 +1074,7 @@ els.tbody.addEventListener("click", (e) => {
 const TIME_RANGE_OPTIONS = [
   { cls: "lt2", label: "Dưới 2 ngày", test: (d) => d <= 2 }, // 0-2 ngày
   { cls: "lt10", label: "Dưới 10 ngày", test: (d) => d < 10 },
+  { cls: "0to30", label: "0 - 30 ngày", test: (d) => d <= 30 }, // 0-30 ngày (gồm cả ngày thứ 30)
   { cls: "10to30", label: "Từ 10 - 30 ngày", test: (d) => d >= 10 && d < 30 },
   { cls: "gt30", label: "Trên 30 ngày", test: (d) => d >= 30 },
 ];
