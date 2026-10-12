@@ -265,8 +265,25 @@
       "text": "I am from Puerto Rico, I had to leave the Island because I couldnt make a life there. I spent around seven years just trying to get by and had nothing to show for it.",
       "likeCount": 12,
       "publishedAt": "2026-10-01T02:04:13Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 2,
+      "replies": [
+        {
+          "id": "UgwUwaPRjlK2i_dyv_B4AaABAg.AbPIfAglU4wAbqVB4y86DY",
+          "author": "@Rolandchocobo",
+          "authorImage": "https://yt3.ggpht.com/ytc/AIdro_n9S8I7lGUpxdN41ZZxeNYXz8rUxSmpKB9yziRCWkMBfQ=s48-c-k-c0x00ffffff-no-rj",
+          "text": "​@sierra5713spoke it my whole life.",
+          "likeCount": 0,
+          "publishedAt": "2026-10-12T00:52:18Z"
+        },
+        {
+          "id": "UgwUwaPRjlK2i_dyv_B4AaABAg.AbPIfAglU4wAbqKhIAv_e2",
+          "author": "@sierra5713",
+          "authorImage": "https://yt3.ggpht.com/ytc/AIdro_n9IzoAMGjv3zsZj7DgCi9iXSZaShZ3CFmPpwHD0DA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "How do you know English",
+          "likeCount": 0,
+          "publishedAt": "2026-10-11T23:20:43Z"
+        }
+      ]
     },
     {
       "id": "UgxeWON691pK8V1DsGx4AaABAg",
