@@ -699,8 +699,17 @@
       "text": "Now showing future Europe.",
       "likeCount": 1,
       "publishedAt": "2026-09-24T12:31:06Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgzE55KZH0Hqw2o8yDV4AaABAg.Ab8OqVJ0akLAbror5r4npQ",
+          "author": "@randyorton6198",
+          "authorImage": "https://yt3.ggpht.com/lrDXM-tkIzc5rLKCh1uHPeM4W8LSvBZYgPbJNfDqsD90RmuOpNOr5Bhnm2eOKpzlHtJ98rmLCi4=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Cry more.",
+          "likeCount": 0,
+          "publishedAt": "2026-10-12T13:12:11Z"
+        }
+      ]
     },
     {
       "id": "Ugy2f6_Ofwq04LneT7t4AaABAg",
