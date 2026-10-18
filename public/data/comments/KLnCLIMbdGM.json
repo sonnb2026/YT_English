@@ -69,8 +69,17 @@
       "text": "Id head to Walking Street where id probably stay",
       "likeCount": 0,
       "publishedAt": "2026-10-13T09:00:38Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgzoqGqCWrM8oakH9ix4AaABAg.Abtwr_DCr9sAc2Xh8RGfY6",
+          "author": "@rick1079",
+          "authorImage": "https://yt3.ggpht.com/ytc/AIdro_m3u-_aQphFuNZIu3zKQpiLJFxboD6uplASkPXqA2bB7Q=s48-c-k-c0x00ffffff-no-rj",
+          "text": "The street shown was Soi 6, not Walking Street.",
+          "likeCount": 0,
+          "publishedAt": "2026-10-17T02:24:25Z"
+        }
+      ]
     },
     {
       "id": "UgwXy6lME1rVSrK_mrd4AaABAg",
