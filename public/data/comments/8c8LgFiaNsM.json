@@ -750,8 +750,17 @@
       "text": "Too dense, dangerous in case of a virus",
       "likeCount": 1,
       "publishedAt": "2026-09-13T14:58:49Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgzGZ9mPm72hJYHPj_J4AaABAg.AahL-olSpcHAcHnFL5YN-0",
+          "author": "@HieuBui-pb2md",
+          "authorImage": "https://yt3.ggpht.com/ytc/AIdro_mjenoZlhFmq6MFIZBA-N14_iCppKuBJXI6wZW4kgM=s48-c-k-c0x00ffffff-no-rj",
+          "text": "With the condition like this, I don't think the virus servive",
+          "likeCount": 0,
+          "publishedAt": "2026-10-23T00:37:38Z"
+        }
+      ]
     },
     {
       "id": "UgyYwzvbEUu3irS4NHN4AaABAg",
@@ -784,8 +793,8 @@
     },
     {
       "id": "Ugwxqj73ZCynDhd0fI14AaABAg",
-      "author": "@hadithitales",
-      "authorImage": "https://yt3.ggpht.com/tyGjjENODlQmN-Gq-UmhiCfCVc0WwW-0TlfwZEfHvdJ1-6AlpJz10SNebkZ1VzOT-hcNdtn7DQ=s48-c-k-c0x00ffffff-no-rj",
+      "author": "@Qoched",
+      "authorImage": "https://yt3.ggpht.com/olvHj4XgvbsBm7yM1IhJxxtJCapgxwROxTKZQ3QfD0to2I5KjmlxQdv1FzryTFepBi6f4hyuWw=s48-c-k-c0x00ffffff-no-rj",
       "text": "India has one of the worst global perception only comparable to Africs",
       "likeCount": 3,
       "publishedAt": "2026-09-12T15:44:58Z",
