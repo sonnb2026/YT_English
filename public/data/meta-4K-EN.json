@@ -1,9 +1,9 @@
 {
   "list": "4K-EN",
-  "lastUpdated": "2026-10-29T06:54:25.573Z",
-  "channelCount": 17,
-  "videoCount": 1016,
-  "quotaUnitsUsed": 209,
+  "lastUpdated": "2026-10-29T06:57:20.308Z",
+  "channelCount": 20,
+  "videoCount": 1212,
+  "quotaUnitsUsed": 514,
   "apiKeysConfigured": 3,
   "vph": {
     "minIntervalHours": 6,
@@ -13,6 +13,11 @@
   },
   "liveCount": 2,
   "allKeysExhausted": false,
-  "errors": [],
+  "errors": [
+    {
+      "channel": "https://www.youtube.com/@GreenOrange-TV",
+      "error": "Channel not found for \"https://www.youtube.com/@GreenOrange-TV\""
+    }
+  ],
   "replyErrors": []
 }
