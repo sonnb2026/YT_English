@@ -28,8 +28,17 @@
       "text": "I’m a Canadian. It’s around 10.30pm. I",
       "likeCount": 0,
       "publishedAt": "2026-10-29T04:37:56Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "Ugwszr1fWhJT-bzp2Vh4AaABAg.AcXfWaZ7razAcYGrcNpYrA",
+          "author": "@PlanetVista4K",
+          "authorImage": "https://yt3.ggpht.com/UP1KuiI-ZYUr_V0QMZqUj3WrxSMAqB70paheckH8ptL_nqqbtqZa5KyGSVhQ0Mc9Ay6bF1Odbw=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Thanks for tuning in all the way from Canada, we hope you enjoy learning about the beautiful land of Bahrain! ✨",
+          "likeCount": 0,
+          "publishedAt": "2026-10-29T10:13:00Z"
+        }
+      ]
     },
     {
       "id": "UgxDhDTlRMMgxkCfI_J4AaABAg",

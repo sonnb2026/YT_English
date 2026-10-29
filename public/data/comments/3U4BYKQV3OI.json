@@ -19,8 +19,17 @@
       "text": "This is on my bucket list, some day i will visit here.",
       "likeCount": 1,
       "publishedAt": "2026-10-28T17:27:21Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgyCPjnEL2NZOKcvPB14AaABAg.AcWTm3J4CcMAcYB06MuHQ-",
+          "author": "@WorldTravelDoc",
+          "authorImage": "https://yt3.ggpht.com/9tMdz766ER0IeeY8hASGitUipJl1L974V6tMVftpqKMRjlZaMZj_AKgWxsnCDD873-4BXiwE2g0=s48-c-k-c0x00ffffff-no-rj",
+          "text": "It’s truly a tropical paradise that belongs on every traveler’s bucket list! 🇲🇻✨",
+          "likeCount": 0,
+          "publishedAt": "2026-10-29T09:21:52Z"
+        }
+      ]
     },
     {
       "id": "UgypA6BjJd7pRfhoML94AaABAg",
