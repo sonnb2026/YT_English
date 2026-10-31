@@ -7,10 +7,19 @@
       "author": "@admare61",
       "authorImage": "https://yt3.ggpht.com/ytc/AIdro_n9inffs-N3-msTqrhVfhHgki-sLUjqsmHjeC1F7aN7yA8=s48-c-k-c0x00ffffff-no-rj",
       "text": "Should I visit?",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-10-30T00:46:43Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "Ugx9Nt6CAWVwl4gfSwR4AaABAg.AcZpqtmM3PZAc_hAgFjygj",
+          "author": "@ImpossibleTravel38",
+          "authorImage": "https://yt3.ggpht.com/jIkotvj5_lQhw2mcDlb5BkO-Df2LnjMadSRe9EHitp6aX34LhCuC31_oO3v-YsCuzlJxNDTynA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "sure",
+          "likeCount": 0,
+          "publishedAt": "2026-10-30T08:50:09Z"
+        }
+      ]
     }
   ]
 }

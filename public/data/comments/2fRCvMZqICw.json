@@ -3,14 +3,42 @@
   "disabled": false,
   "comments": [
     {
+      "id": "UgxsMqG0ikt-zlX_-9B4AaABAg",
+      "author": "@MayBach-600-G",
+      "authorImage": "https://yt3.ggpht.com/0CuFsE1uKptpaGw40OFmNGMjny2LJmZi3xVrhaND_ubsyfWLanQtbNsAIQrnVVZlUZ3AtVxkXg=s48-c-k-c0x00ffffff-no-rj",
+      "text": "WOW 😮",
+      "likeCount": 1,
+      "publishedAt": "2026-10-30T12:02:38Z",
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgxsMqG0ikt-zlX_-9B4AaABAg.Aca2CWTPjbnAcbDrGHKaiv",
+          "author": "@themaps26",
+          "authorImage": "https://yt3.ggpht.com/J0T_UHrL_J2b88VBZJ6h0slDc22IkTPXiJJQ_fN7YlNj5L230LIHxQ7uvBnMryUHOsxqbC-8=s48-c-k-c0x00ffffff-no-rj",
+          "text": "😊😊😊",
+          "likeCount": 1,
+          "publishedAt": "2026-10-30T23:03:42Z"
+        }
+      ]
+    },
+    {
       "id": "UgzutuFPqgiq2zs-pCp4AaABAg",
       "author": "@Glyn-r",
       "authorImage": "https://yt3.ggpht.com/ytc/AIdro_meqQRL0zCllAnC_OULHvyioHnxQgDv5V6pOJ1FBeFlkNyG-K1JF6XOiPI9PZt3p3irAw=s48-c-k-c0x00ffffff-no-rj",
       "text": "Good documentary but no, i wouldn't live there.",
-      "likeCount": 0,
+      "likeCount": 2,
       "publishedAt": "2026-10-29T23:38:50Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgzutuFPqgiq2zs-pCp4AaABAg.AcZi4hgZWDZAcbDnfWxGQG",
+          "author": "@themaps26",
+          "authorImage": "https://yt3.ggpht.com/J0T_UHrL_J2b88VBZJ6h0slDc22IkTPXiJJQ_fN7YlNj5L230LIHxQ7uvBnMryUHOsxqbC-8=s48-c-k-c0x00ffffff-no-rj",
+          "text": "It’s definitely not for everyone, but it makes for an interesting visit! Thanks for watching.",
+          "likeCount": 2,
+          "publishedAt": "2026-10-30T23:03:12Z"
+        }
+      ]
     }
   ]
 }
