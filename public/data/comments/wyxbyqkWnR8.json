@@ -116,10 +116,27 @@
       "author": "@howardloewen1834",
       "authorImage": "https://yt3.ggpht.com/ytc/AIdro_kICLLfFxG1-pb4FwZLFfYm-s8RSOWVhk3z_CSHLYY=s48-c-k-c0x00ffffff-no-rj",
       "text": "I used to live in Newfoundland, Corner Brook to be precise.",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-10-22T21:37:50Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 2,
+      "replies": [
+        {
+          "id": "UgyjqyrlpU6qHxbxz6d4AaABAg.AcHTfMpLnjyAcd-HN4tFz6",
+          "author": "@nelsonanthony8582",
+          "authorImage": "https://yt3.ggpht.com/ytc/AIdro_m3-j1kbegPHcT9_eRjK8mtlUzF_wUorr5yf3v_56udItA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Me too!",
+          "likeCount": 0,
+          "publishedAt": "2026-10-31T15:34:48Z"
+        },
+        {
+          "id": "UgyjqyrlpU6qHxbxz6d4AaABAg.AcHTfMpLnjyAcd-CRbj_yc",
+          "author": "@nelsonanthony8582",
+          "authorImage": "https://yt3.ggpht.com/ytc/AIdro_m3-j1kbegPHcT9_eRjK8mtlUzF_wUorr5yf3v_56udItA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Me too!",
+          "likeCount": 0,
+          "publishedAt": "2026-10-31T15:34:08Z"
+        }
+      ]
     },
     {
       "id": "Ugy9Km9_KrbGlR5kJtB4AaABAg",
