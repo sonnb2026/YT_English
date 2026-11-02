@@ -28,8 +28,17 @@
       "text": "That’s the first time I’ve ever seen a giraffe go to the bathroom",
       "likeCount": 0,
       "publishedAt": "2026-11-01T09:42:43Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "Ugy4B_KZcvL7a_mVyUR4AaABAg.AcewmWCJV5xAchFg7TUbGp",
+          "author": "@PlanetVista4K",
+          "authorImage": "https://yt3.ggpht.com/UP1KuiI-ZYUr_V0QMZqUj3WrxSMAqB70paheckH8ptL_nqqbtqZa5KyGSVhQ0Mc9Ay6bF1Odbw=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Haha, thanks for an interesting insight about the documentary!",
+          "likeCount": 0,
+          "publishedAt": "2026-11-02T07:15:06Z"
+        }
+      ]
     },
     {
       "id": "UgwH6DX_XdTU7m7wVqN4AaABAg",
