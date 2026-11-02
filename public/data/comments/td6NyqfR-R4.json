@@ -29,8 +29,17 @@
       "text": "bunch of lies",
       "likeCount": 0,
       "publishedAt": "2026-09-29T17:57:45Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgxAcjGiBJ6pvW-LYnZ4AaABAg.AbLrCJFwv6LAcetXzVLt9y",
+          "author": "@markriobr",
+          "authorImage": "https://yt3.ggpht.com/ytc/AIdro_kjoRdAX9N0atfPHIFqkWU1OkYHFZWrRiTj7fpN-BB6q1E=s48-c-k-c0x00ffffff-no-rj",
+          "text": "What do you know man , have you ever been there/",
+          "likeCount": 0,
+          "publishedAt": "2026-11-01T09:14:23Z"
+        }
+      ]
     }
   ]
 }

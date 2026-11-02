@@ -19,8 +19,17 @@
       "text": "I worked in Kowloon, TST.",
       "likeCount": 0,
       "publishedAt": "2026-10-31T16:31:27Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgymivgqRBopnkG8Vvp4AaABAg.Acd5lGzqNB4AcegNyR2MkL",
+          "author": "@WhereonEarth4K",
+          "authorImage": "https://yt3.ggpht.com/eGYI9iH4DF7Eb8QJYMMO2qNL_ls-4aNbWgY0tHLbCMrP4phySA3gN8SnhWB02TzySTEBGRXAIg=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Tsim Sha Tsui, no less. That’s a part of Kowloon you knew from the inside. If you had to pick one thing about the place that no film could capture, what would it be?",
+          "likeCount": 0,
+          "publishedAt": "2026-11-01T07:19:25Z"
+        }
+      ]
     }
   ]
 }

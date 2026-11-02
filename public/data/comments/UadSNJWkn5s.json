@@ -47,14 +47,30 @@
       "text": "Bendiciones a jamaica",
       "likeCount": 0,
       "publishedAt": "2026-10-29T05:00:08Z",
-      "replyCount": 1,
+      "replyCount": 3,
       "replies": [
+        {
+          "id": "UgxmqnQIFv_a_4CZheJ4AaABAg.AcXi36wBudJAcgVhwWpgv_",
+          "author": "@PlanetVista4K",
+          "authorImage": "https://yt3.ggpht.com/UP1KuiI-ZYUr_V0QMZqUj3WrxSMAqB70paheckH8ptL_nqqbtqZa5KyGSVhQ0Mc9Ay6bF1Odbw=s48-c-k-c0x00ffffff-no-rj",
+          "text": "¡Saludos hasta Texas, y a Santiago de Cuba también! Gracias por acompañarnos.",
+          "likeCount": 0,
+          "publishedAt": "2026-11-02T00:15:55Z"
+        },
+        {
+          "id": "UgxmqnQIFv_a_4CZheJ4AaABAg.AcXi36wBudJAcf7-ofNwRB",
+          "author": "@GuillermoGonzalez-ml5bs",
+          "authorImage": "https://yt3.ggpht.com/ytc/AIdro_mW0HX8nY-Aegy1UXDgfTB3j4snP03S3Xy5MBGZkW1hUbbYoGKtw-0B2eroA56mHZ8mFQ=s48-c-k-c0x00ffffff-no-rj",
+          "text": "​@PlanetVista4Ksoy de santiago de cuba pero vivo en texas 🇺🇸",
+          "likeCount": 1,
+          "publishedAt": "2026-11-01T11:20:48Z"
+        },
         {
           "id": "UgxmqnQIFv_a_4CZheJ4AaABAg.AcXi36wBudJAcYqs3-CjM8",
           "author": "@PlanetVista4K",
           "authorImage": "https://yt3.ggpht.com/UP1KuiI-ZYUr_V0QMZqUj3WrxSMAqB70paheckH8ptL_nqqbtqZa5KyGSVhQ0Mc9Ay6bF1Odbw=s48-c-k-c0x00ffffff-no-rj",
           "text": "¡Bendiciones para ti también! Gracias por ver nuestro documental sobre Jamaica 🇯🇲",
-          "likeCount": 0,
+          "likeCount": 1,
           "publishedAt": "2026-10-29T15:36:22Z"
         }
       ]
