@@ -9,8 +9,17 @@
       "text": "video great",
       "likeCount": 0,
       "publishedAt": "2026-11-02T02:38:31Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgxV47jtyDANggcLCx54AaABAg.Acgl1RFdpbtAci_dWjC9s4",
+          "author": "@TOURGUIDE-05",
+          "authorImage": "https://yt3.ggpht.com/n8pzlEL2E7Nic6elOsdea1BIWavVw-A-Al_lvcDVz3CltIELOn4lzHO6_eCb-9RdtGRLVoWFXhM=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Glad you enjoyed it! 🇫🇷",
+          "likeCount": 0,
+          "publishedAt": "2026-11-02T19:37:29Z"
+        }
+      ]
     },
     {
       "id": "UgxO-cbsLbpB2zajHBF4AaABAg",

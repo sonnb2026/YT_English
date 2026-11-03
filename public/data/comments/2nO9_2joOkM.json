@@ -60,28 +60,55 @@
       "text": "1",
       "likeCount": 0,
       "publishedAt": "2026-11-02T06:49:13Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgyQoVBv3HjarI_WjUl4AaABAg.AchCidIz-K5AchV6OBvtK8",
+          "author": "@CulturalDocumentary8386",
+          "authorImage": "https://yt3.ggpht.com/IsmlC-BG_TRNXiVh5WE9vKJDR49KeBxvbrXDXW-uwCWf8d3N5LQd9QDFdBvUmW7XFqoLxWjIrQ=s48-c-k-c0x00ffffff-no-rj",
+          "text": "yes",
+          "likeCount": 0,
+          "publishedAt": "2026-11-02T09:29:53Z"
+        }
+      ]
     },
     {
       "id": "UgwaqtnuNTPqiHLfPrl4AaABAg",
       "author": "@DemarioGant",
       "authorImage": "https://yt3.ggpht.com/ytc/AIdro_k65DZsAHQBUnAuOxSZT7r9fAk4iy8_eNYr_aT6LrBfoCwrcS85Lh9VOPaGRI17GotdtA=s48-c-k-c0x00ffffff-no-rj",
       "text": "America  Atlanta ga.",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-11-02T06:43:53Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgwaqtnuNTPqiHLfPrl4AaABAg.AchC6V5Dp50AchURejFZDk",
+          "author": "@CulturalDocumentary8386",
+          "authorImage": "https://yt3.ggpht.com/IsmlC-BG_TRNXiVh5WE9vKJDR49KeBxvbrXDXW-uwCWf8d3N5LQd9QDFdBvUmW7XFqoLxWjIrQ=s48-c-k-c0x00ffffff-no-rj",
+          "text": "welcome",
+          "likeCount": 0,
+          "publishedAt": "2026-11-02T09:24:03Z"
+        }
+      ]
     },
     {
       "id": "Ugxsi7DhwBZBa8eGg854AaABAg",
       "author": "@ShivamKumar-xp7cr",
       "authorImage": "https://yt3.ggpht.com/ytc/AIdro_kp93xo6FUTA-L40ZgTe4JQ0B_t9hnufO3aVTpXmSdBzVY=s48-c-k-c0x00ffffff-no-rj",
       "text": "Watching from Prayagraj, India",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-10-22T22:44:09Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "Ugxsi7DhwBZBa8eGg854AaABAg.AcHaG3e8_GrAchUvHnjFz5",
+          "author": "@CulturalDocumentary8386",
+          "authorImage": "https://yt3.ggpht.com/IsmlC-BG_TRNXiVh5WE9vKJDR49KeBxvbrXDXW-uwCWf8d3N5LQd9QDFdBvUmW7XFqoLxWjIrQ=s48-c-k-c0x00ffffff-no-rj",
+          "text": "welcome",
+          "likeCount": 0,
+          "publishedAt": "2026-11-02T09:28:14Z"
+        }
+      ]
     },
     {
       "id": "Ugx-CfobrzwhGeLsgzt4AaABAg",
