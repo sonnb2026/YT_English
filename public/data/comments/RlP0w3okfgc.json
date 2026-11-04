@@ -9,8 +9,17 @@
       "text": "USA",
       "likeCount": 0,
       "publishedAt": "2026-11-02T12:24:29Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgxomNh7bZFqKMpqeY94AaABAg.Acho58ApN16AcjjZ1USX4o",
+          "author": "@RealLifeExplorerUS",
+          "authorImage": "https://yt3.ggpht.com/VOTYeogA3svRHezd2hKC7gXBFQ1MfUJMfk9x8n9MlK41OZrEGw5VaKeMdaByegHiVFZusEPQwKA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Thank you so much!",
+          "likeCount": 0,
+          "publishedAt": "2026-11-03T06:23:21Z"
+        }
+      ]
     }
   ]
 }
