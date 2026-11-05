@@ -29,8 +29,17 @@
       "text": "this is beautiful, how to get there??",
       "likeCount": 0,
       "publishedAt": "2026-11-03T03:26:14Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgwKHp0M0nZ3Txla-7J4AaABAg.AcjQHm6PlYUAcoK_6GCiaG",
+          "author": "@ImpossiblePlacesGlobal",
+          "authorImage": "https://yt3.ggpht.com/LwYkFZI2p-IY4wdKBofIBSNEu_selWlAK-xctI5EDkWgRuS-5ckOVcA9KIabO1lo04K8hUXYPw=s48-c-k-c0x00ffffff-no-rj",
+          "text": "You can fly into Roland Garros and then rent a car to get around the island",
+          "likeCount": 0,
+          "publishedAt": "2026-11-05T01:12:31Z"
+        }
+      ]
     },
     {
       "id": "UgzmvrIB8slm7KfFZw94AaABAg",

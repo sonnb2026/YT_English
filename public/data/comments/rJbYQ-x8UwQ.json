@@ -9,8 +9,17 @@
       "text": "It looks like Italy",
       "likeCount": 0,
       "publishedAt": "2026-11-01T17:08:53Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgwuQNqW5qtbxZNf8y14AaABAg.AcfjqK9GlKRAcoNQUWnrM4",
+          "author": "@ImpossiblePlacesGlobal",
+          "authorImage": "https://yt3.ggpht.com/LwYkFZI2p-IY4wdKBofIBSNEu_selWlAK-xctI5EDkWgRuS-5ckOVcA9KIabO1lo04K8hUXYPw=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Maybe they all have colourful houses",
+          "likeCount": 0,
+          "publishedAt": "2026-11-05T01:37:25Z"
+        }
+      ]
     },
     {
       "id": "UgyCukotbMGI0617zD94AaABAg",

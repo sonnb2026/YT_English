@@ -3,14 +3,33 @@
   "disabled": false,
   "comments": [
     {
+      "id": "UgykiHPa9du1fgQkU1h4AaABAg",
+      "author": "@KimEducatesYou",
+      "authorImage": "https://yt3.ggpht.com/KTa4LUnaL3MH5JDvvExGCmEtWkCnHYMTAHVbQHKqzdmp_42_a8aRsXLGnFa0tbJ00CYLlszGZA=s48-c-k-c0x00ffffff-no-rj",
+      "text": "Looks a bit like watermelon",
+      "likeCount": 0,
+      "publishedAt": "2026-11-04T04:12:00Z",
+      "replyCount": 0,
+      "replies": []
+    },
+    {
       "id": "UgxyMnGE2ESkZzpQASV4AaABAg",
       "author": "@travellens99",
       "authorImage": "https://yt3.ggpht.com/ruE97dD5Quj_Uj2406j3AJxRi-ey0sMIzeVEx9flpYrhGpmfaHUq1IzyTpOPA2kFENjcPsWAiw=s48-c-k-c0x00ffffff-no-rj",
       "text": "went to the coastal salt pans around 24:01 last year and it's way smaller than what the drone makes it look like. anyone else think the scale is exaggerated?",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-10-26T09:52:14Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgxyMnGE2ESkZzpQASV4AaABAg.AcQW5zRTd_hAcm4TB1abiI",
+          "author": "@KimEducatesYou",
+          "authorImage": "https://yt3.ggpht.com/KTa4LUnaL3MH5JDvvExGCmEtWkCnHYMTAHVbQHKqzdmp_42_a8aRsXLGnFa0tbJ00CYLlszGZA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "It does show the word ai in the corner at the start.",
+          "likeCount": 0,
+          "publishedAt": "2026-11-04T04:13:16Z"
+        }
+      ]
     },
     {
       "id": "UgymoMySPOjOoL07mQt4AaABAg",

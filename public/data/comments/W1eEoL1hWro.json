@@ -3,14 +3,33 @@
   "disabled": false,
   "comments": [
     {
+      "id": "UgzxV4GF5ikQNhCB1u14AaABAg",
+      "author": "@lennardouellette8254",
+      "authorImage": "https://yt3.ggpht.com/ytc/AIdro_m2zI7DPConhvs3fGCXioo4B_9PsdA2lCLtQCKgGFM=s48-c-k-c0x00ffffff-no-rj",
+      "text": "Your background music is annoying",
+      "likeCount": 0,
+      "publishedAt": "2026-11-04T18:44:46Z",
+      "replyCount": 0,
+      "replies": []
+    },
+    {
       "id": "Ugyk-n0c-u_V1Cx6mAV4AaABAg",
       "author": "@us601308",
       "authorImage": "https://yt3.ggpht.com/ytc/AIdro_nuWrlb7joLWCOuTBAC_CJ0tmcRidI2YY9cnFck4cbUTLjV=s48-c-k-c0x00ffffff-no-rj",
       "text": "The background music of this video is too loud. I had to stop watching it.",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-10-31T11:10:04Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "Ugyk-n0c-u_V1Cx6mAV4AaABAg.AccWzMWMEl3AcmdYU1PktB",
+          "author": "@GlobalLifeInsights",
+          "authorImage": "https://yt3.ggpht.com/A99MvFbJzMZ0lVwUSmZjto6B1Qeywpg3YEkC9s0_AipfSZl93DMruPX8aLWR372u9aRQa7Hfw94=s48-c-k-c0x00ffffff-no-rj",
+          "text": "I am truly sorry about that! Thank you for letting us know; we will definitely balance the audio better next time. Did the story interest you otherwise?",
+          "likeCount": 0,
+          "publishedAt": "2026-11-04T09:28:34Z"
+        }
+      ]
     },
     {
       "id": "UgxTHW62q_hhJNe13wZ4AaABAg",
