@@ -57,8 +57,17 @@
       "text": "Watching from New Zealand, thank you 😊",
       "likeCount": 0,
       "publishedAt": "2026-10-29T07:40:22Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "Ugx9GCNWI57dBLcMxXJ4AaABAg.AcY-OiFEvZBActZovK3d3F",
+          "author": "@ImpossibleTravel38",
+          "authorImage": "https://yt3.ggpht.com/jIkotvj5_lQhw2mcDlb5BkO-Df2LnjMadSRe9EHitp6aX34LhCuC31_oO3v-YsCuzlJxNDTynA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Greeting to New Zealand!",
+          "likeCount": 0,
+          "publishedAt": "2026-11-07T02:01:57Z"
+        }
+      ]
     },
     {
       "id": "Ugyk1MzPpwn_DTQhhll4AaABAg",
@@ -67,8 +76,17 @@
       "text": "Hello from Norway",
       "likeCount": 0,
       "publishedAt": "2026-10-28T20:07:41Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "Ugyk1MzPpwn_DTQhhll4AaABAg.AcWl7IcUq9KAct_G0JjNC7",
+          "author": "@ImpossibleTravel38",
+          "authorImage": "https://yt3.ggpht.com/jIkotvj5_lQhw2mcDlb5BkO-Df2LnjMadSRe9EHitp6aX34LhCuC31_oO3v-YsCuzlJxNDTynA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Greetings to Norway!",
+          "likeCount": 0,
+          "publishedAt": "2026-11-07T02:05:47Z"
+        }
+      ]
     },
     {
       "id": "UgzkB3ynyRWLx9uIOix4AaABAg",
