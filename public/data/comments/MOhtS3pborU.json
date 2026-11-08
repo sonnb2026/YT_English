@@ -9,8 +9,17 @@
       "text": "8:45 It’s 4:23 AM here in LA.  Watching from Los Angeles",
       "likeCount": 3,
       "publishedAt": "2026-09-20T11:24:54Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgyaYha9YL3P8-56c_B4AaABAg.Aayz5Bf30F0AcuxLOHkYDf",
+          "author": "@XPlanet-TV",
+          "authorImage": "https://yt3.ggpht.com/_bNZCCRdDV0NKzj1ed7mdZ---W7sfyjHwAcHNF3wZtgQfOYlDdRdhvCWMF6i1_oi9jSYAtgP=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Thanks for watching!",
+          "likeCount": 0,
+          "publishedAt": "2026-11-07T14:55:28Z"
+        }
+      ]
     }
   ]
 }
