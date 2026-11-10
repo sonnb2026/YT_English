@@ -9,8 +9,17 @@
       "text": "UAE @11:00AM",
       "likeCount": 1,
       "publishedAt": "2026-11-01T07:06:58Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgxmLO6XOzVwcMZ2cZJ4AaABAg.Aceexdn1DwJAd021of3ltf",
+          "author": "@PlanetVista4K",
+          "authorImage": "https://yt3.ggpht.com/UP1KuiI-ZYUr_V0QMZqUj3WrxSMAqB70paheckH8ptL_nqqbtqZa5KyGSVhQ0Mc9Ay6bF1Odbw=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Good morning to the UAE — thanks for spending it with us in Bhutan!",
+          "likeCount": 0,
+          "publishedAt": "2026-11-09T23:40:40Z"
+        }
+      ]
     },
     {
       "id": "UgxZfHeuMWQcNfrvB5Z4AaABAg",
