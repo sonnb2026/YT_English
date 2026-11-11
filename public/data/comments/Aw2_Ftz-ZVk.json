@@ -9,8 +9,25 @@
       "text": "Good let’s keep it that way! Don’t want nothing to do with Southern Maine.",
       "likeCount": 1,
       "publishedAt": "2026-11-05T11:47:13Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 2,
+      "replies": [
+        {
+          "id": "UgzuGo4zcCqxhYyIvFF4AaABAg.AcpTCr1I9FrAd1tkKmZSmu",
+          "author": "@MikeDeTour-y1y",
+          "authorImage": "https://yt3.ggpht.com/ytc/AIdro_lCcLaQxWcvI2EGO1Yx8JghVogwuIvweQtKO2WljVQO8Z9U-9WIqXep9b4I_4RwnbLfMQ=s48-c-k-c0x00ffffff-no-rj",
+          "text": "⁠anywhere North of Waterville.",
+          "likeCount": 0,
+          "publishedAt": "2026-11-10T16:57:59Z"
+        },
+        {
+          "id": "UgzuGo4zcCqxhYyIvFF4AaABAg.AcpTCr1I9FrAd1jN_QDpHh",
+          "author": "@WhereonEarth4K",
+          "authorImage": "https://yt3.ggpht.com/eGYI9iH4DF7Eb8QJYMMO2qNL_ls-4aNbWgY0tHLbCMrP4phySA3gN8SnhWB02TzySTEBGRXAIg=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Sounds like you know the quiet side of Maine well. If someone only had one day up there, where would you send them?",
+          "likeCount": 0,
+          "publishedAt": "2026-11-10T15:27:22Z"
+        }
+      ]
     }
   ]
 }
