@@ -17,20 +17,38 @@
       "author": "@tishoboy_ke",
       "authorImage": "https://yt3.ggpht.com/Rc_2ZRcRTRAatg9RQQB1Yh-2sbXT0crZ_lfypRXVMKVML1YRmTnFXmYGw8of4-Q-c6l3aVrL=s48-c-k-c0x00ffffff-no-rj",
       "text": "Mombasa, Kenya",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-11-10T10:48:12Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgyTLTZXfrypFWHLHpx4AaABAg.Ad1EQyyuuF8Ad3DvaK1T3n",
+          "author": "@BestHiddenPlaces",
+          "authorImage": "https://yt3.ggpht.com/uVknciy33Ok-MhWOMs5lfvpcFJPire_gJ8oJ1eQpsgOaF6iGbVPgyqFtDh5orRdeUa6eaA-TaKA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Greetings to Mombasa! 🌊 From the Kenyan coast all the way to the Sahara. Thank you for watching, and if you’ve ever been to Lake Chad or the Sahel, we’d love to hear what struck you most.",
+          "likeCount": 0,
+          "publishedAt": "2026-11-11T05:22:16Z"
+        }
+      ]
     },
     {
       "id": "UgyeYg8Y5xq9PWJiVJx4AaABAg",
       "author": "@abiee_001",
       "authorImage": "https://yt3.ggpht.com/URV0jQHGMEaWHn3qKgCT0CvhTPbZvI0UPeZ3C8wJulQ0RmhnATYET57fdsuS8XnFxdiPFoanxA=s48-c-k-c0x00ffffff-no-rj",
       "text": "Nairobi, Kenya",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-11-10T08:10:52Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgyeYg8Y5xq9PWJiVJx4AaABAg.Ad0xQXrYtRGAd3DyUzh6Fl",
+          "author": "@BestHiddenPlaces",
+          "authorImage": "https://yt3.ggpht.com/uVknciy33Ok-MhWOMs5lfvpcFJPire_gJ8oJ1eQpsgOaF6iGbVPgyqFtDh5orRdeUa6eaA-TaKA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Hello Nairobi! 🇰🇪 Thanks for joining us from Kenya. Which part of Chad surprised you most: the water carts in N’Djamena or the camels and crocodiles at Guelta d’Archei?",
+          "likeCount": 0,
+          "publishedAt": "2026-11-11T05:22:40Z"
+        }
+      ]
     }
   ]
 }

@@ -85,8 +85,17 @@
       "text": "Deutschland",
       "likeCount": 0,
       "publishedAt": "2026-11-04T21:27:17Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgzNwLhelgB-zItfojp4AaABAg.AcnvnSD1KhdAd43g4hj5sG",
+          "author": "@UnseenEarth4K1402",
+          "authorImage": "https://yt3.ggpht.com/1HLO8sQu1JwQn9NvET9uVJ_j_gNL5FDzQ2ViFOJbi-UIcOjLf_curBRjYt4lyJiMQ2Og5IMFVA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Thank you for watching.❤️❤️❤️",
+          "likeCount": 0,
+          "publishedAt": "2026-11-11T13:12:00Z"
+        }
+      ]
     },
     {
       "id": "UgwvmtJFuiQyTpMzsR14AaABAg",
@@ -102,7 +111,7 @@
           "author": "@UnseenEarth4K1402",
           "authorImage": "https://yt3.ggpht.com/1HLO8sQu1JwQn9NvET9uVJ_j_gNL5FDzQ2ViFOJbi-UIcOjLf_curBRjYt4lyJiMQ2Og5IMFVA=s48-c-k-c0x00ffffff-no-rj",
           "text": "Thank you for watching.❤️❤️❤️",
-          "likeCount": 0,
+          "likeCount": 1,
           "publishedAt": "2026-11-09T01:17:26Z"
         },
         {
@@ -110,7 +119,7 @@
           "author": "@UnseenEarth4K1402",
           "authorImage": "https://yt3.ggpht.com/1HLO8sQu1JwQn9NvET9uVJ_j_gNL5FDzQ2ViFOJbi-UIcOjLf_curBRjYt4lyJiMQ2Og5IMFVA=s48-c-k-c0x00ffffff-no-rj",
           "text": "Thank you so much. Wishing you all the best!❤️❤️❤️",
-          "likeCount": 0,
+          "likeCount": 1,
           "publishedAt": "2026-11-09T01:17:01Z"
         }
       ]
