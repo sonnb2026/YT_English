@@ -28,8 +28,17 @@
       "text": "I am watching this video from Montreal , Canada.  Wonderful video, thank you.",
       "likeCount": 0,
       "publishedAt": "2026-11-13T02:19:09Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "Ugx4QwzAIoNaI3TecAx4AaABAg.Ad82ZAKWtMzAd8DssgL4c5",
+          "author": "@PlanetVista4K",
+          "authorImage": "https://yt3.ggpht.com/UP1KuiI-ZYUr_V0QMZqUj3WrxSMAqB70paheckH8ptL_nqqbtqZa5KyGSVhQ0Mc9Ay6bF1Odbw=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Greetings to Canada, we hope you enjoy learning more about the life and culture in Algeria!",
+          "likeCount": 0,
+          "publishedAt": "2026-11-13T03:58:06Z"
+        }
+      ]
     },
     {
       "id": "Ugx6KJkLpA6niqfOAxV4AaABAg",
@@ -610,14 +619,22 @@
       "text": "Tens of thousands of free meals during Ramadan is probably the part that stayed with me most. Is this still a big tradition in Constantine every year?",
       "likeCount": 4,
       "publishedAt": "2026-10-16T02:38:44Z",
-      "replyCount": 6,
+      "replyCount": 7,
       "replies": [
+        {
+          "id": "UgxDApMpKR02FGg8QL94AaABAg.Ac-zY3hMFjBAd9L-gjaNI2",
+          "author": "@PlanetVista4K",
+          "authorImage": "https://yt3.ggpht.com/UP1KuiI-ZYUr_V0QMZqUj3WrxSMAqB70paheckH8ptL_nqqbtqZa5KyGSVhQ0Mc9Ay6bF1Odbw=s48-c-k-c0x00ffffff-no-rj",
+          "text": "@jasjas1731 A beautiful parallel — langar and the Ramadan iftar tents share the same idea: everyone eats together, no questions asked.",
+          "likeCount": 0,
+          "publishedAt": "2026-11-13T14:19:34Z"
+        },
         {
           "id": "UgxDApMpKR02FGg8QL94AaABAg.Ac-zY3hMFjBAd6GO-2REea",
           "author": "@jasjas1731",
           "authorImage": "https://yt3.ggpht.com/ytc/AIdro_lMCriObQliEglpkMa9UA8MfStYsmsRkzI6bb_kIZc=s48-c-k-c0x00ffffff-no-rj",
           "text": "Sikh (religion) gurdwaras( temples)offer free food three times every day to everyone, it doesn't matter which religion, community, or country you belong to. Golden Temple a Sikh gurdwara in  Amritsar feeds free food to thousands of people  every day and it is the world's biggest free food kitchen. Every Sikh temple in the world you go to will feed you free without asking a single question. Everyone sits on the floor to eat it doesn't matter if you are rich or poor, even if you are a king. This concept was started by Sikh gurus saying everyone is equal and no one higher than others.",
-          "likeCount": 0,
+          "likeCount": 1,
           "publishedAt": "2026-11-12T09:41:28Z"
         },
         {
