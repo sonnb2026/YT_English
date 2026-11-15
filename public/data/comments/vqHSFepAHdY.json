@@ -1,5 +1,16 @@
 {
   "videoId": "vqHSFepAHdY",
-  "disabled": true,
-  "comments": []
+  "disabled": false,
+  "comments": [
+    {
+      "id": "Ugwj9qdgXnlDth-MGj94AaABAg",
+      "author": "@ventureatlas-official",
+      "authorImage": "https://yt3.ggpht.com/4hLiIKyvRZjU2XqHZHcmv4QohVFCHOvA0pjEeUy5XurgT0WKipPZSGeCSsxZWV_j7WokyqkbMw=s48-c-k-c0x00ffffff-no-rj",
+      "text": "Bro colab",
+      "likeCount": 0,
+      "publishedAt": "2026-11-14T16:16:13Z",
+      "replyCount": 0,
+      "replies": []
+    }
+  ]
 }

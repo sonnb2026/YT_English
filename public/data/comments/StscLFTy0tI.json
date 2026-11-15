@@ -47,7 +47,7 @@
       "author": "@JourneyThroughHorizons",
       "authorImage": "https://yt3.ggpht.com/JkNCgP87zpoY7rmOzrvYeLy_wEa7_zeJJguIj6fm8a_8j8-XLFiE0q53_K7RfoWyVWNQlnH5dA=s48-c-k-c0x00ffffff-no-rj",
       "text": "Turkey is truly breathtaking! 🇹🇷✨ From the stunning landscapes and historic cities to the beautiful coastline, every corner feels like a story waiting to be discovered. 🌍❤️✈️",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-09-17T14:31:32Z",
       "replyCount": 0,
       "replies": []
@@ -137,7 +137,7 @@
       "author": "@HowardRoger-e7u",
       "authorImage": "https://yt3.ggpht.com/VS8y4ZMz3KGwLj76go-uJQ6TzLR4Zmm4UqgN9EH_O2b0WW_xEokJQLa4wjXk0GYrqVqcXMkBoQ=s48-c-k-c0x00ffffff-no-rj",
       "text": "The mix of history, culture, and landscapes here is amazing.",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-09-17T09:37:49Z",
       "replyCount": 0,
       "replies": []
@@ -159,8 +159,17 @@
       "text": "Cappadocia looks absolutely unreal, definitely on my travel list.",
       "likeCount": 0,
       "publishedAt": "2026-09-17T09:37:42Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgyjQKgXJl0IQF8J_RJ4AaABAg.Aar3RPRpgLaAdCnSKpUEoy",
+          "author": "@turgs1",
+          "authorImage": "https://yt3.ggpht.com/AYOcyCNDMG8ClHvZ40qgi84T7z_N7vAVhqrRmKwuzMV12Odwtem9TY9TmPR9-JcG8ZQYpqChnA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "been there 10 yrs ago - it is certainly a different world...",
+          "likeCount": 0,
+          "publishedAt": "2026-11-14T22:34:36Z"
+        }
+      ]
     }
   ]
 }
