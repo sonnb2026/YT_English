@@ -1,9 +1,9 @@
 {
   "list": "4K-EN",
-  "lastUpdated": "2026-11-15T02:27:56.892Z",
+  "lastUpdated": "2026-11-16T02:42:43.953Z",
   "channelCount": 56,
-  "videoCount": 4195,
-  "quotaUnitsUsed": 4343,
+  "videoCount": 4209,
+  "quotaUnitsUsed": 4893,
   "apiKeysConfigured": 3,
   "vph": {
     "minIntervalHours": 6,
@@ -11,12 +11,16 @@
     "fallbackMaxHours": 48,
     "maxSnapshots": 8
   },
-  "liveCount": 3,
+  "liveCount": 2,
   "allKeysExhausted": false,
   "errors": [
     {
       "channel": "https://www.youtube.com/@GreenOrange-TV",
       "error": "Channel not found for \"https://www.youtube.com/@GreenOrange-TV\""
+    },
+    {
+      "videoId": "I5pYOiBKqSA",
+      "error": "commentThreads failed: processingFailure"
     }
   ],
   "replyErrors": []
