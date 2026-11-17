@@ -1,5 +1,25 @@
 {
   "videoId": "RTpBeAnTRlM",
   "disabled": false,
-  "comments": []
+  "comments": [
+    {
+      "id": "UgxHVFUTA992WZHGgUJ4AaABAg",
+      "author": "@AJ-bz7wq",
+      "authorImage": "https://yt3.ggpht.com/jJNDNXcMcE_OddgoOM-q7WiICgu9gEV2PerEit7U0nMvYqqW61zQdcsOKgIBEg41w-MlAK-REA=s48-c-k-c0x00ffffff-no-rj",
+      "text": "Great documentary",
+      "likeCount": 0,
+      "publishedAt": "2026-11-16T23:18:45Z",
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgxHVFUTA992WZHGgUJ4AaABAg.AdI15QJMBbbAdI4lQbmHSM",
+          "author": "@ImpossibleTravel38",
+          "authorImage": "https://yt3.ggpht.com/jIkotvj5_lQhw2mcDlb5BkO-Df2LnjMadSRe9EHitp6aX34LhCuC31_oO3v-YsCuzlJxNDTynA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "thank you❤❤❤",
+          "likeCount": 0,
+          "publishedAt": "2026-11-16T23:50:50Z"
+        }
+      ]
+    }
+  ]
 }

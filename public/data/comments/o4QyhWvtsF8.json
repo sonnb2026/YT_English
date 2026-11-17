@@ -3,14 +3,33 @@
   "disabled": false,
   "comments": [
     {
+      "id": "UgyDFG2lZChxVPIAbI14AaABAg",
+      "author": "@DocsUntoldTV",
+      "authorImage": "https://yt3.ggpht.com/8G8VXJ6aTgzEbpUlPQoPPPpM5Eu6k8j0lyUYk58Xu30PYjymg0rR2LaiZV85kG1mHtpuls0AD6o=s48-c-k-c0x00ffffff-no-rj",
+      "text": "KFC is the correct answer! 🍗",
+      "likeCount": 0,
+      "publishedAt": "2026-11-17T04:04:50Z",
+      "replyCount": 0,
+      "replies": []
+    },
+    {
       "id": "UgyhMqMarcXGzjnixkN4AaABAg",
       "author": "@Qfelgard",
       "authorImage": "https://yt3.ggpht.com/f6342TLmo1XswDd9YGuW6VT_HcfteI9AOSE4HG4Ab9kUVNqbioU7Bsp1zkC8bq8-6lImyaYYrQ=s48-c-k-c0x00ffffff-no-rj",
       "text": "10:57 pm CET Poland",
       "likeCount": 0,
       "publishedAt": "2026-11-14T21:57:15Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgyhMqMarcXGzjnixkN4AaABAg.AdCjAl6HSI2AdFqAPMy9mx",
+          "author": "@Earthcue",
+          "authorImage": "https://yt3.ggpht.com/iQz_3dWSTJp44j0m4mCXBNiaYUbd6OG3TbJ2ShLfVxB9Cn7GAzNOxVX5kHYk_aECUy4uZxMkaQ=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Thanks for spending part of your evening with us. Greetings to Poland!",
+          "likeCount": 0,
+          "publishedAt": "2026-11-16T02:56:06Z"
+        }
+      ]
     },
     {
       "id": "UgzNl0KxcpMLI3ZJU9J4AaABAg",
@@ -19,8 +38,17 @@
       "text": "6:30 a.m., Lexington, Kentucky, U.S.A.",
       "likeCount": 0,
       "publishedAt": "2026-11-14T11:29:47Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgzNl0KxcpMLI3ZJU9J4AaABAg.AdBbMyfJfWyAdFvgRmBzcw",
+          "author": "@Earthcue",
+          "authorImage": "https://yt3.ggpht.com/iQz_3dWSTJp44j0m4mCXBNiaYUbd6OG3TbJ2ShLfVxB9Cn7GAzNOxVX5kHYk_aECUy4uZxMkaQ=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Good morning, Lexington! ☀️ What a nice way to start the day. Thanks for watching with us!",
+          "likeCount": 0,
+          "publishedAt": "2026-11-16T03:44:18Z"
+        }
+      ]
     },
     {
       "id": "UgzZp85dV62RDwLyPIR4AaABAg",
