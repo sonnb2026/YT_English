@@ -904,8 +904,17 @@
       "text": "I'm from the Fiji islands it's 13:01",
       "likeCount": 0,
       "publishedAt": "2026-10-13T05:12:50Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "Ugy7_CPLzBbaIwz39LV4AaABAg.AbtXn75uJLGAdKos-RaYEL",
+          "author": "@ImpossibleTravel38",
+          "authorImage": "https://yt3.ggpht.com/jIkotvj5_lQhw2mcDlb5BkO-Df2LnjMadSRe9EHitp6aX34LhCuC31_oO3v-YsCuzlJxNDTynA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Greeting to Fiji islands!❤️",
+          "likeCount": 0,
+          "publishedAt": "2026-11-18T01:20:55Z"
+        }
+      ]
     },
     {
       "id": "Ugy6kZAxWZcyeF5xqmt4AaABAg",

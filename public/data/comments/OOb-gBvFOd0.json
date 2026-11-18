@@ -976,8 +976,17 @@
       "text": "I’m watching from the toilet",
       "likeCount": 1,
       "publishedAt": "2026-10-16T23:08:16Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgzSOI5F3MHT_rneRVV4AaABAg.Ac2BFVoskuYAdJD3B39MRv",
+          "author": "@PlanetVista4K",
+          "authorImage": "https://yt3.ggpht.com/UP1KuiI-ZYUr_V0QMZqUj3WrxSMAqB70paheckH8ptL_nqqbtqZa5KyGSVhQ0Mc9Ay6bF1Odbw=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Just make sure you don't drop your phone in the \"opposite world\" you're currently in! 😉",
+          "likeCount": 0,
+          "publishedAt": "2026-11-17T10:22:33Z"
+        }
+      ]
     },
     {
       "id": "UgzPl4mZF2hf9fgqssh4AaABAg",
