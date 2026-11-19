@@ -234,7 +234,7 @@
           "author": "@EmiliaPetel",
           "authorImage": "https://yt3.ggpht.com/Ry0A7_vCnCDqHa0du90mKotClJVBB98yAOfmLcOuNXtc3FamMGtOH2XWUxfuOdqPPaZtMB3veVY=s48-c-k-c0x00ffffff-no-rj",
           "text": "Hi are you native",
-          "likeCount": 1,
+          "likeCount": 0,
           "publishedAt": "2026-11-15T12:34:17Z"
         }
       ]
@@ -549,8 +549,16 @@
       "text": "Tucson Arizona",
       "likeCount": 1,
       "publishedAt": "2026-08-25T11:50:17Z",
-      "replyCount": 1,
+      "replyCount": 2,
       "replies": [
+        {
+          "id": "Ugzo9Bd_ma9_Jxw4YBt4AaABAg.A_w4KI-2CjkAdN5pvjWscg",
+          "author": "@JohnTracy-e5z",
+          "authorImage": "https://yt3.ggpht.com/ZxKKeAgRNPB6r3ofQ6TtatdnSlvoEi61rAoXnF9Ruv0-MjQdkp3Xc_UCjmhUv7qAQp9MmVtnjw=s48-c-k-c0x00ffffff-no-rj",
+          "text": "@EmiliaPetel native to what? Isee multiple answers",
+          "likeCount": 0,
+          "publishedAt": "2026-11-18T22:36:24Z"
+        },
         {
           "id": "Ugzo9Bd_ma9_Jxw4YBt4AaABAg.A_w4KI-2CjkAdEIlgpVzuP",
           "author": "@EmiliaPetel",
