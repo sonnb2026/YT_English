@@ -195,8 +195,17 @@
       "text": "From Houma, LA",
       "likeCount": 0,
       "publishedAt": "2026-10-12T19:06:32Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgxlHp-yohf2H6zZO1p4AaABAg.AbsSPVr-j-vAdPydu_n6eq",
+          "author": "@ImpossibleTravel38",
+          "authorImage": "https://yt3.ggpht.com/jIkotvj5_lQhw2mcDlb5BkO-Df2LnjMadSRe9EHitp6aX34LhCuC31_oO3v-YsCuzlJxNDTynA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Greeting to Houma!🥰",
+          "likeCount": 0,
+          "publishedAt": "2026-11-20T01:22:34Z"
+        }
+      ]
     },
     {
       "id": "Ugz5_JyZE0cZFyqvISp4AaABAg",
@@ -1246,7 +1255,7 @@
       "author": "@ColinWuzHere",
       "authorImage": "https://yt3.ggpht.com/M2T1WhK0cMWgafiVyq9IeXzNMgwXZQmPPVqlK4O3krskCzKNt_Pn9QbKVkzHosj4qwGGr_be3A=s48-c-k-c0x00ffffff-no-rj",
       "text": "As a Louisiana native, that thumbnail is WILD",
-      "likeCount": 5,
+      "likeCount": 6,
       "publishedAt": "2026-09-29T00:42:40Z",
       "replyCount": 2,
       "replies": [
