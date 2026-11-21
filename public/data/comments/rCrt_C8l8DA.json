@@ -224,8 +224,17 @@
       "text": "I live in Louisiana and it’s fun to live here.",
       "likeCount": 2,
       "publishedAt": "2026-10-10T13:03:03Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgzJIA7_A0WCoSYQCXF4AaABAg.AbmeDYW4aAxAdSXCE9yJAq",
+          "author": "@ImpossibleTravel38",
+          "authorImage": "https://yt3.ggpht.com/jIkotvj5_lQhw2mcDlb5BkO-Df2LnjMadSRe9EHitp6aX34LhCuC31_oO3v-YsCuzlJxNDTynA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "🥰🥰🥰🥰",
+          "likeCount": 0,
+          "publishedAt": "2026-11-21T01:11:42Z"
+        }
+      ]
     },
     {
       "id": "UgxqrmkiLITFtHLAchV4AaABAg",

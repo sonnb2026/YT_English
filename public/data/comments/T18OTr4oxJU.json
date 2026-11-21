@@ -9,8 +9,17 @@
       "text": "Awesome place",
       "likeCount": 0,
       "publishedAt": "2026-11-12T05:45:25Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgwmjMWIYefRvQ8GE354AaABAg.Ad5qN12V28sAdQZb0oEGvi",
+          "author": "@ThePlanetJournalGlobe",
+          "authorImage": "https://yt3.ggpht.com/VexI9Vshk9m23BPgNLkGnKZ0urbxMQvWmLm2L-J0z1tdVjOhnzFhDsE3Ber8wn45HtM8ge0jOA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "The Cook Islands truly feel like paradise on Earth, @TheWorldTravel13! Thank you for continuing to explore these remote islands with us.",
+          "likeCount": 0,
+          "publishedAt": "2026-11-20T06:54:13Z"
+        }
+      ]
     }
   ]
 }

@@ -3,24 +3,52 @@
   "disabled": false,
   "comments": [
     {
+      "id": "UgzXPrNbOE8zFIdV3lx4AaABAg",
+      "author": "@TerraLore-jsr",
+      "authorImage": "https://yt3.ggpht.com/u2rKntUuavzC-vqbiKeTrTifWNtd9nYzip1FhbwVteDeBdE-G1w-o0jNb3w9rJ6ZCSO8plzI=s48-c-k-c0x00ffffff-no-rj",
+      "text": "❤️❤️❤️",
+      "likeCount": 0,
+      "publishedAt": "2026-11-20T09:13:38Z",
+      "replyCount": 0,
+      "replies": []
+    },
+    {
       "id": "UgwJQK075gjUshC-O0V4AaABAg",
       "author": "@ingejordan5611",
       "authorImage": "https://yt3.ggpht.com/440R_vfncLnez0xU6yQqJQI_pV9u2TC2pS02VG5r8MKDmd1TdRk2UJ-Yru4_OfM7x5COG6H7v7c=s48-c-k-c0x00ffffff-no-rj",
       "text": "i love todos santos!",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-11-20T02:58:48Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgwJQK075gjUshC-O0V4AaABAg.AdQ8eig17F3AdRS-1ulT4b",
+          "author": "@HappyTravel99",
+          "authorImage": "https://yt3.ggpht.com/rH-HMyG3JR-HQ6TQOjDQNs3aZs0WBiNDSCCOLfCxy8M-AMloTnsGhSOAS_2KYOKS1U_qEtS6=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Thank you for sharing! ❤️ Todos Santos is such a charming place, with its beautiful scenery and peaceful atmosphere. Wishing you many more wonderful memories there! 🌴",
+          "likeCount": 1,
+          "publishedAt": "2026-11-20T15:06:59Z"
+        }
+      ]
     },
     {
       "id": "UgzZxr5RcoJJIdM9ZqF4AaABAg",
       "author": "@AmazingDiscoveriesTopUS",
       "authorImage": "https://yt3.ggpht.com/mWQlW84MbnlW7e78Ln_Hiexvd-tTPHfRZFQKud6DoN3cbWfnlpLwnUJCzCh4l80FPm8TX2xC=s48-c-k-c0x00ffffff-no-rj",
       "text": "Amazing video",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-11-19T17:05:02Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgzZxr5RcoJJIdM9ZqF4AaABAg.AdP4hngE3rXAdRS2o2XagW",
+          "author": "@HappyTravel99",
+          "authorImage": "https://yt3.ggpht.com/rH-HMyG3JR-HQ6TQOjDQNs3aZs0WBiNDSCCOLfCxy8M-AMloTnsGhSOAS_2KYOKS1U_qEtS6=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Thank you so much for watching and for your kind words! ❤️ We're so glad you enjoyed the video. Wishing you a wonderful day and all the best! 🌴",
+          "likeCount": 1,
+          "publishedAt": "2026-11-20T15:07:29Z"
+        }
+      ]
     },
     {
       "id": "Ugwwtx0pwtFxicsPlsh4AaABAg",
@@ -47,10 +75,19 @@
       "author": "@kenyantales001",
       "authorImage": "https://yt3.ggpht.com/wu8DVTUuhqg8NRX78gWa-WMk2qZk_c5ZN-_Q8-EAfqTZSO-8L2xgqYC0nojIE7kP8gGWrlBb=s48-c-k-c0x00ffffff-no-rj",
       "text": "interesting",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-11-19T10:47:35Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgxDoszg7L0iY1rJgRF4AaABAg.AdOPWJa3gMMAdRRvpsA_0l",
+          "author": "@HappyTravel99",
+          "authorImage": "https://yt3.ggpht.com/rH-HMyG3JR-HQ6TQOjDQNs3aZs0WBiNDSCCOLfCxy8M-AMloTnsGhSOAS_2KYOKS1U_qEtS6=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Thank you for watching! We're glad you found it interesting. Wishing you a wonderful day! ❤️",
+          "likeCount": 1,
+          "publishedAt": "2026-11-20T15:06:24Z"
+        }
+      ]
     }
   ]
 }

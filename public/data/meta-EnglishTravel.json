@@ -1,9 +1,9 @@
 {
   "list": "EnglishTravel",
-  "lastUpdated": "2026-11-20T03:50:01.814Z",
+  "lastUpdated": "2026-11-21T03:41:40.225Z",
   "channelCount": 27,
-  "videoCount": 1166,
-  "quotaUnitsUsed": 569,
+  "videoCount": 1171,
+  "quotaUnitsUsed": 706,
   "apiKeysConfigured": 3,
   "vph": {
     "minIntervalHours": 6,
@@ -11,7 +11,7 @@
     "fallbackMaxHours": 48,
     "maxSnapshots": 8
   },
-  "liveCount": 2,
+  "liveCount": 1,
   "allKeysExhausted": false,
   "errors": [
     {
