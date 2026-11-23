@@ -204,3 +204,16 @@ ngày ngay trong Google Apps Script.
 - Dịch tiêu đề: không còn cột "Dịch". Rê chuột vào tiêu đề video trong bảng sẽ hiện khung chứa bản dịch Tiếng Việt (dịch tự động, lưu lại để lần sau hiện ngay).
 - Không còn ô "Khoảng thời gian" và "Chọn biến sắp xếp". Chip thời gian nằm cùng dòng với chip nhóm kênh: Dưới 2 ngày (0-2) / Dưới 10 ngày (0-9) / 0 - 30 ngày (0-30) / Từ 10 - 30 ngày (10-29) / Trên 30 ngày (từ 30 trở lên). Bấm để lọc bảng, chọn nhiều chip được (hợp của các khoảng), bấm lại để bỏ.
 - Đã sửa lỗi `escapeHtml` khai báo trùng khiến dấu `"` không được escape trong thuộc tính HTML.
+
+## 14. Dashboard VPH (phía trên bảng dữ liệu)
+
+- **3 ô số liệu** cạnh các nút tab: Tổng VPH (tất cả video), View 14 ngày, View 30 ngày. View 14/30 ngày = tổng lượt xem hiện tại của các video **đăng** trong 14/30 ngày.
+- **VPH theo nhóm kênh**: Kênh mới (< 2K sub) / Kênh nhỏ (2K–10K) / Kênh lớn (> 10K), số tuyệt đối + % trên tổng VPH.
+- **VPH theo thời gian đăng** (d = số ngày đã đăng): Dưới 2 ngày = ngày 0–1, Dưới 10 ngày = ngày 2–9, Dưới 30 ngày = ngày 10–30, Trên 30 ngày = từ ngày 31.
+- **Top 10 kênh VPH cao nhất**: kèm nhóm kênh, số video đang theo dõi và số video có VPH > 100. Bấm vào kênh → bảng dữ liệu, 3 ô số liệu và 2 khung nhóm kênh / thời gian đăng chỉ còn kênh đó; bấm lại để bỏ lọc. Nút ▲ ▼ (hoặc lăn chuột) để cuộn danh sách.
+- **Top 10 kênh · view 7 ngày**: view phát sinh trong 7 ngày qua của mọi video của kênh (gồm cả video mới đăng). Cách tính, theo thứ tự ưu tiên:
+  1. *tự động*: tổng view kênh hôm nay − tổng view kênh 7 ngày trước, lấy từ `public/data/channel-stats-<tab>.json` (file mới, mỗi lần fetch ghi thêm 1 mốc). Cần app đã theo dõi kênh ≥ 7 ngày.
+  2. *tự động · ước tính*: cộng view tăng thêm của từng video đang theo dõi (dựa trên snapshot view). Không tính được phần view của video quá cũ không còn được cập nhật nên có thể thấp hơn thực tế một chút.
+  3. *nhập tay*: nút "✎ Nhập tay" cho kênh chưa đủ dữ liệu. Số được lưu vào `public/data/manual-views.json` qua `api/manual-views.js` (dùng chung `GITHUB_TOKEN`), ai mở web cũng thấy. Khi app tự tính được thì số tự động được ưu tiên.
+- Các khung đổi theo **bộ lọc kênh** (ô "Tất cả kênh" hoặc bấm kênh trong Top 10). Ô tìm kiếm và các chip phía dưới không ảnh hưởng dashboard. 2 khung Top 10 luôn xếp hạng toàn bộ kênh của tab, kênh đang lọc được tô sáng.
+- Mỗi video giờ giữ 10 snapshot view (trước là 8) để luôn đủ mốc 7 ngày kể cả khi có thêm vài lần fetch tay.
