@@ -12,7 +12,8 @@
 //                            24h + vài phút (nằm NGOÀI cửa sổ). Khi không có mốc nào trong
 //                            [6h, 24h], lấy mốc mới nhất trong (24h, 48h]. Quá 48h thì coi như
 //                            không có mốc -> quay về trung bình cả đời ("lifetime").
-//   MAX_SNAPSHOTS            default 8   - số snapshot giữ lại cho mỗi video.
+//   MAX_SNAPSHOTS            default 10  - số snapshot giữ lại cho mỗi video (đủ phủ 7 ngày
+//                            kể cả khi có thêm vài lần fetch tay - dùng để tính view phát sinh 7 ngày).
 
 const HOUR_MS = 3600000;
 
@@ -25,7 +26,7 @@ export const CONFIG = {
   minIntervalHours: numEnv("MIN_VPH_INTERVAL_HOURS", 6),
   windowMaxHours: numEnv("VPH_WINDOW_MAX_HOURS", 24),
   fallbackMaxHours: numEnv("VPH_FALLBACK_MAX_HOURS", 48),
-  maxSnapshots: Math.floor(numEnv("MAX_SNAPSHOTS", 8)),
+  maxSnapshots: Math.floor(numEnv("MAX_SNAPSHOTS", 10)),
 };
 
 // ---------- Live / công chiếu ----------
