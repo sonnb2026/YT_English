@@ -185,10 +185,14 @@ module.exports = async function handler(req, res) {
       await renameDataFile(`videos-${tabKey}.json`, `videos-${newKey}.json`, ghHeaders, owner, repo, ref);
       await renameDataFile(`meta-${tabKey}.json`, `meta-${newKey}.json`, ghHeaders, owner, repo, ref);
       await renameDataFile(`channel-map-${tabKey}.json`, `channel-map-${newKey}.json`, ghHeaders, owner, repo, ref);
+      await renameDataFile(`channel-stats-${tabKey}.json`, `channel-stats-${newKey}.json`, ghHeaders, owner, repo, ref);
+      await moveManualViewsTab(tabKey, newKey, ghHeaders, owner, repo, ref);
     } else if (action === "removeTab") {
       await deleteDataFile(`videos-${tabKey}.json`, ghHeaders, owner, repo, ref);
       await deleteDataFile(`meta-${tabKey}.json`, ghHeaders, owner, repo, ref);
       await deleteDataFile(`channel-map-${tabKey}.json`, ghHeaders, owner, repo, ref);
+      await deleteDataFile(`channel-stats-${tabKey}.json`, ghHeaders, owner, repo, ref);
+      await moveManualViewsTab(tabKey, null, ghHeaders, owner, repo, ref);
     }
 
     // 3. Ghi channels.json mới lên GitHub - làm SAU CÙNG (xem giải thích ở
@@ -234,17 +238,27 @@ async function renameDataFile(oldName, newName, ghHeaders, owner, repo, ref) {
     if (!getRes.ok) return; // không có file cũ, không sao cả
     const file = await getRes.json();
 
-    // file.content có thể thiếu nếu file cũ quá lớn (Contents API GET không
-    // trả về content cho file lớn) - trong trường hợp đó KHÔNG được xoá file
-    // cũ ở dưới, nếu không dữ liệu sẽ mất trắng mà không có file mới thay thế.
-    if (typeof file.content !== "string") return;
+    // Với file > 1 MB (videos-<tab>.json gần như luôn > 1 MB), Contents API
+    // trả về content = "" (encoding "none") chứ không phải nội dung thật. Khi
+    // đó phải tải lại bằng media type "raw". Nếu vẫn không lấy được nội dung
+    // thì KHÔNG được xoá file cũ ở dưới, nếu không dữ liệu sẽ mất trắng.
+    let content = typeof file.content === "string" ? file.content.replace(/\s/g, "") : "";
+    if (!content || file.encoding !== "base64") {
+      const rawRes = await fetch(`${base}/${oldName}?ref=${ref}`, {
+        headers: { ...ghHeaders, Accept: "application/vnd.github.raw+json" },
+      });
+      if (!rawRes.ok) return;
+      const buf = Buffer.from(await rawRes.arrayBuffer());
+      if (!buf.length || (typeof file.size === "number" && buf.length !== file.size)) return;
+      content = buf.toString("base64");
+    }
 
     const putRes = await fetch(`${base}/${newName}`, {
       method: "PUT",
       headers: { ...ghHeaders, "Content-Type": "application/json" },
       body: JSON.stringify({
         message: `chore: đổi tên ${oldName} thành ${newName} qua web`,
-        content: file.content,
+        content,
         branch: ref,
       }),
     });
@@ -283,5 +297,34 @@ async function deleteDataFile(name, ghHeaders, owner, repo, ref) {
     });
   } catch {
     // Bỏ qua - không nghiêm trọng, chỉ là rác dữ liệu không dùng tới nữa.
+  }
+}
+
+// Đổi tên (newTab = tên mới) hoặc xoá (newTab = null) khoá của tab trong
+// public/data/manual-views.json - nơi lưu "view 7 ngày" nhập tay theo tab.
+async function moveManualViewsTab(oldTab, newTab, ghHeaders, owner, repo, ref) {
+  try {
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/public/data/manual-views.json`;
+    const getRes = await fetch(`${url}?ref=${ref}`, { headers: ghHeaders });
+    if (!getRes.ok) return;
+    const file = await getRes.json();
+    const data = JSON.parse(Buffer.from(file.content || "", "base64").toString("utf-8"));
+    if (!data || typeof data !== "object" || !data[oldTab]) return;
+    if (newTab) data[newTab] = data[oldTab];
+    delete data[oldTab];
+    await fetch(url, {
+      method: "PUT",
+      headers: { ...ghHeaders, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        message: newTab
+          ? `chore: chuyển view nhập tay của tab "${oldTab}" sang "${newTab}" qua web`
+          : `chore: xoá view nhập tay của tab "${oldTab}" qua web`,
+        content: Buffer.from(JSON.stringify(data, null, 2) + "\n", "utf-8").toString("base64"),
+        sha: file.sha,
+        branch: ref,
+      }),
+    });
+  } catch {
+    // Bỏ qua - chỉ là số liệu nhập tay phụ trợ.
   }
 }
