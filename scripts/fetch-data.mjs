@@ -134,6 +134,12 @@ const metaFileFor = (listName) => path.join(DATA_DIR, `meta-${listName}.json`);
 // itself failed (e.g. quota ran out before we could even resolve it), so a
 // later failed run can still find that channel's previously-cached videos.
 const channelMapFileFor = (listName) => path.join(DATA_DIR, `channel-map-${listName}.json`);
+// Lịch sử tổng view / sub của từng kênh theo thời gian: { channelId: [[epochMs, viewCount, subs], ...] }.
+// Frontend dùng file này để tính "view phát sinh 7 ngày" của kênh (= view kênh hôm nay - view kênh
+// 7 ngày trước), đã gồm cả video cũ lẫn video mới đăng.
+const channelStatsFileFor = (listName) => path.join(DATA_DIR, `channel-stats-${listName}.json`);
+const CHANNEL_STATS_MAX_POINTS = 90;
+const CHANNEL_STATS_MIN_GAP_MS = 6 * 3600000; // 2 lần fetch cách nhau < 6h thì không ghi thêm mốc
 
 let quotaUnits = 0;
 const API_BASE = "https://www.googleapis.com/youtube/v3";
@@ -414,6 +420,24 @@ async function saveChannelMap(listName, map) {
   await writeFile(channelMapFileFor(listName), JSON.stringify(map, null, 2));
 }
 
+async function loadChannelStats(listName) {
+  try {
+    const parsed = JSON.parse(await readFile(channelStatsFileFor(listName), "utf-8"));
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function recordChannelStat(stats, channel, nowMs) {
+  const points = Array.isArray(stats[channel.channelId]) ? stats[channel.channelId] : [];
+  const last = points[points.length - 1];
+  if (!last || nowMs - last[0] >= CHANNEL_STATS_MIN_GAP_MS) {
+    points.push([nowMs, channel.channelViewCount, channel.subscriberCount]);
+  }
+  stats[channel.channelId] = points.slice(-CHANNEL_STATS_MAX_POINTS);
+}
+
 // Normalizes channels.json into { listName: [rawChannel, ...] } pairs.
 // Supports the current named-lists object format, e.g. { "TBN": [...], "4K": [...] },
 // and also accepts a plain array (treated as a single implicit "default" list)
@@ -435,6 +459,7 @@ async function fetchList(listName, rawChannels) {
   // Chỉ dùng để dựng snapshot đầu tiên cho dữ liệu cũ chưa có `snapshots` (migration 1 lần).
   const previousFetchTime = await loadPreviousFetchTime(listName);
   const channelMap = await loadChannelMap(listName); // rawChannel -> channelId, from last successful resolve
+  const channelStats = await loadChannelStats(listName);
   const errors = [];
 
   // The video set is a MERGE across runs, not a fresh rebuild each time:
@@ -458,6 +483,7 @@ async function fetchList(listName, rawChannels) {
       console.log(`\n=== Channel: ${rawChannel} ===`);
       channel = await resolveChannel(rawChannel);
       channelMap[rawChannel] = channel.channelId;
+      recordChannelStat(channelStats, channel, Date.now());
       console.log(`Resolved: ${channel.channelTitle} (${channel.channelId})`);
 
       // Brand-new channels (never resolved before, e.g. just added through
@@ -578,6 +604,20 @@ async function fetchList(listName, rawChannels) {
   }
 
   await saveChannelMap(listName, channelMap);
+
+  // Chỉ giữ lịch sử của các kênh còn trong tab.
+  const liveChannelIds = new Set(Object.values(channelMap));
+  for (const id of Object.keys(channelStats)) {
+    if (!liveChannelIds.has(id)) delete channelStats[id];
+  }
+  await writeFile(
+    channelStatsFileFor(listName),
+    "{\n" +
+      Object.entries(channelStats)
+        .map(([id, pts]) => `${JSON.stringify(id)}: ${JSON.stringify(pts)}`)
+        .join(",\n") +
+      "\n}\n"
+  );
 
   const allVideos = [...videoMap.values()].sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
   // Mỗi video 1 dòng: vẫn là JSON hợp lệ, nhưng không bị "xé" mảng snapshots thành hàng chục dòng
