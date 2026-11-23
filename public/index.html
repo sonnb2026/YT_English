@@ -60,11 +60,23 @@
   </div>
 </header>
 
-<div class="market-tabs" id="marketTabs" role="tablist">
-  <!-- Các nút tab được tạo tự động từ public/data/tabs.json - không cần sửa file này khi thêm/xoá tab. -->
+<div class="tabs-row">
+  <div class="market-tabs" id="marketTabs" role="tablist">
+    <!-- Các nút tab được tạo tự động từ public/data/tabs.json - không cần sửa file này khi thêm/xoá tab. -->
+  </div>
+  <!-- 3 ô tổng hợp: Tổng VPH / View 14 ngày / View 30 ngày - đổi theo kênh đang lọc (app.js: renderDashboard). -->
+  <div class="dash-tiles" id="dashTiles"></div>
 </div>
 
 <main class="board">
+  <!-- Dashboard VPH: 4 khung tổng hợp, vẽ bởi renderDashboard() trong app.js. -->
+  <section class="vph-dash" id="vphDash" aria-label="Tổng hợp VPH">
+    <article class="dash-card" id="dashGroupCard"></article>
+    <article class="dash-card" id="dashAgeCard"></article>
+    <article class="dash-card dash-card--list" id="dashTopVphCard"></article>
+    <article class="dash-card dash-card--list" id="dashTop7dCard"></article>
+  </section>
+
   <div class="controls">
     <div class="search-box">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
@@ -247,6 +259,23 @@
         </div>
       </div>
       <div class="channel-modal__revenue-grid" id="channelModalRevenue"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="manualViewsOverlay">
+  <div class="modal modal--manual">
+    <button class="modal__close" id="manualViewsClose" aria-label="Đóng">✕</button>
+    <h2 class="manual-views__title">✎ Nhập tay view 7 ngày</h2>
+    <p class="manual-views__hint">
+      Dành cho kênh <b>chưa đủ dữ liệu lịch sử</b> (app chưa theo dõi đủ 7 ngày). Nhập tổng view kênh có được trong 7 ngày gần nhất
+      (lấy từ YouTube Studio / Social Blade...). Khi app đã tự tính được, số tự động sẽ được dùng thay cho số nhập tay.
+      Để trống = xoá số nhập tay.
+    </p>
+    <div class="manual-views__list" id="manualViewsList"></div>
+    <div class="manual-views__footer">
+      <div class="fetch-trigger__status" id="manualViewsStatus"></div>
+      <button type="button" class="fetch-trigger__submit" id="manualViewsSave">Lưu số liệu</button>
     </div>
   </div>
 </div>
