@@ -505,7 +505,23 @@ async function fetchList(listName, rawChannels) {
       );
       console.log(`Found ${videoIds.length} videos`);
 
-      const stats = await getVideoStats(videoIds);
+      // Cập nhật lượt xem cho TOÀN BỘ video đã theo dõi của kênh, không chỉ
+      // ~50 video mới nhất. Nếu không, video cũ hơn sẽ bị "đóng băng" view/VPH
+      // từ lần lấy toàn bộ lịch sử và vẫn bị cộng vào Tổng VPH / view 7 ngày.
+      // videos.list chỉ tốn 1 unit / 50 video nên rất rẻ (~100 unit/ngày cho
+      // vài nghìn video). Riêng bình luận vẫn chỉ làm mới cho nhóm video mới
+      // nhất (xem needsCommentRefresh bên dưới) để không đốt quota.
+      const recentIdSet = new Set(videoIds);
+      const olderTrackedIds = useFullHistory
+        ? []
+        : [...videoMap.values()]
+            .filter((v) => v.channelId === channel.channelId && !recentIdSet.has(v.videoId))
+            .map((v) => v.videoId);
+      if (olderTrackedIds.length) {
+        console.log(`  + cập nhật lượt xem cho ${olderTrackedIds.length} video cũ hơn đang theo dõi`);
+      }
+
+      const stats = await getVideoStats([...videoIds, ...olderTrackedIds]);
       // Thời điểm số liệu view được đọc - dùng làm mốc snapshot (chính xác hơn dùng giờ bắt đầu cả job).
       const statsFetchedAtMs = Date.now();
       const fetchedIds = new Set();
@@ -532,13 +548,17 @@ async function fetchList(listName, rawChannels) {
           ...velocity,
         });
 
+        // Video cũ ngoài nhóm mới nhất: chỉ cập nhật số liệu, không lấy lại
+        // bình luận (trừ khi bật FORCE_REFRESH_COMMENTS) - tránh tốn quota cho
+        // hàng nghìn video cũ mỗi ngày.
+        const isRecent = recentIdSet.has(v.videoId);
         const needsCommentRefresh =
           FORCE_REFRESH_COMMENTS ||
           !prev ||
-          prev.commentCount !== v.commentCount;
+          (isRecent && prev.commentCount !== v.commentCount);
 
         if (!needsCommentRefresh) {
-          console.log(`  - ${v.videoId} comments unchanged, skipping`);
+          if (isRecent) console.log(`  - ${v.videoId} comments unchanged, skipping`);
           continue;
         }
 
@@ -571,6 +591,17 @@ async function fetchList(listName, rawChannels) {
             videoMap.delete(videoId);
           }
         }
+      } else {
+        // videos.list tra theo ID: video cũ không còn trả về nghĩa là đã bị xoá
+        // hoặc chuyển riêng tư trên YouTube -> bỏ khỏi dữ liệu.
+        let removed = 0;
+        for (const id of olderTrackedIds) {
+          if (!fetchedIds.has(id)) {
+            videoMap.delete(id);
+            removed++;
+          }
+        }
+        if (removed) console.log(`  - bỏ ${removed} video đã bị xoá/ẩn trên YouTube`);
       }
     } catch (err) {
       console.error(`! Failed channel "${rawChannel}": ${err.message}`);
