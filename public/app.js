@@ -470,12 +470,22 @@ function getSortValue(v, field) {
 async function loadData() {
   els.tbody.innerHTML = `<tr><td colspan="${getActiveColumns().length}" class="empty-state"><span class="loading-plane">✈️</span> Đang tải dữ liệu...</td></tr>`;
   try {
-    const [videosRes, metaRes] = await Promise.all([
-      fetch(`data/videos-${currentList}.json`, { cache: "no-store" }),
-      fetch(`data/meta-${currentList}.json`, { cache: "no-store" }),
+    const listForThisLoad = currentList;
+    const [videosRes, metaRes, statsRes, manualRes] = await Promise.all([
+      fetch(`data/videos-${encodeURIComponent(currentList)}.json`, { cache: "no-store" }),
+      fetch(`data/meta-${encodeURIComponent(currentList)}.json`, { cache: "no-store" }),
+      // 2 file phụ cho dashboard - chưa có (404) cũng không sao.
+      fetch(`data/channel-stats-${encodeURIComponent(currentList)}.json`, { cache: "no-store" }).catch(() => null),
+      fetch(`data/manual-views.json`, { cache: "no-store" }).catch(() => null),
     ]);
+    // Người dùng đã bấm sang tab khác trong lúc đang tải - bỏ kết quả cũ.
+    if (listForThisLoad !== currentList) return;
     allVideos = videosRes.ok ? await videosRes.json() : [];
     const meta = metaRes.ok ? await metaRes.json() : null;
+    channelStats = statsRes && statsRes.ok ? await statsRes.json().catch(() => ({})) : {};
+    manualViews = manualRes && manualRes.ok ? await manualRes.json().catch(() => ({})) : {};
+    dataAsOfMs = meta && meta.lastUpdated ? new Date(meta.lastUpdated).getTime() : Date.now();
+    dashDataVersion++;
 
     populateChannelFilter();
     if (meta) {
@@ -917,6 +927,7 @@ function applyFilters() {
   sortVideos();
   renderTable();
   renderChannelGroupSummary();
+  renderDashboardIfNeeded();
 }
 
 function sortVideos() {
@@ -1562,6 +1573,558 @@ function closeModal() {
   els.modalOverlay.classList.remove("open");
 }
 
+// =====================================================================
+// ---------- Dashboard VPH (4 khung tổng hợp + 3 ô số liệu) ----------
+// =====================================================================
+//
+// - 3 ô (Tổng VPH / View 14 ngày / View 30 ngày), khung "VPH theo nhóm kênh" và
+//   "VPH theo thời gian đăng" đổi theo KÊNH đang lọc (ô "Tất cả kênh" hoặc bấm
+//   vào kênh trong 2 khung Top 10). Ô tìm kiếm và các chip bên dưới KHÔNG ảnh hưởng.
+// - 2 khung Top 10 luôn xếp hạng toàn bộ kênh trong tab (để còn bấm chọn kênh
+//   khác); kênh đang được lọc sẽ được tô sáng.
+// - VPH của video đang live/sắp phát không được cộng (giống ô "Tổng VPH" ở header).
+
+const DASH_HOT_VPH = 100; // ngưỡng "video > 100" dưới mỗi kênh trong Top 10 VPH
+const DASH_TOP_N = 10;
+const HOUR_MS_DASH = 3600000;
+const WEEK_MS = 7 * DAY_MS;
+
+// Nhóm kênh: cùng ngưỡng với classifyChannelGroup().
+const DASH_GROUPS = [
+  { cls: "new", label: "Kênh mới", meta: "< 2K sub", color: "var(--teal)" },
+  { cls: "small", label: "Kênh nhỏ", meta: "2K – 10K sub", color: "var(--violet)" },
+  { cls: "large", label: "Kênh lớn", meta: "> 10K sub", color: "var(--gold)" },
+  { cls: "unknown", label: "Không rõ sub", meta: "kênh ẩn sub", color: "var(--text-faint)" },
+];
+
+// Thời gian đăng tính theo số ngày đã đăng d (0 = đăng trong 24h qua):
+//   Dưới 2 ngày  = ngày 0 – 1   (không tính ngày thứ 2)
+//   Dưới 10 ngày = ngày 2 – 9   (không tính ngày thứ 10)
+//   Dưới 30 ngày = ngày 10 – 30 (tính hết ngày thứ 30)
+//   Trên 30 ngày = từ ngày 31
+const DASH_AGE_BUCKETS = [
+  { key: "a2", label: "Dưới 2 ngày", meta: "ngày 0 – 1", color: "#f472b6", test: (d) => d < 2 },
+  { key: "a10", label: "Dưới 10 ngày", meta: "ngày 2 – 9", color: "#34d399", test: (d) => d >= 2 && d < 10 },
+  { key: "a30", label: "Dưới 30 ngày", meta: "ngày 10 – 30", color: "var(--amber)", test: (d) => d >= 10 && d <= 30 },
+  { key: "a31", label: "Trên 30 ngày", meta: "từ ngày 31", color: "#60a5fa", test: (d) => d > 30 },
+];
+
+let channelStats = {}; // channel-stats-<tab>.json: { channelId: [[ms, channelViewCount, subs], ...] }
+let manualViews = {}; // manual-views.json: { tab: { channelId: { views7d, title, updatedAt } } }
+let dataAsOfMs = Date.now(); // thời điểm của dữ liệu (lần fetch gần nhất)
+let dashDataVersion = 0;
+let dashRenderedKey = "";
+
+const dashEls = {
+  tiles: document.getElementById("dashTiles"),
+  group: document.getElementById("dashGroupCard"),
+  age: document.getElementById("dashAgeCard"),
+  topVph: document.getElementById("dashTopVphCard"),
+  top7d: document.getElementById("dashTop7dCard"),
+  manualOverlay: document.getElementById("manualViewsOverlay"),
+  manualClose: document.getElementById("manualViewsClose"),
+  manualList: document.getElementById("manualViewsList"),
+  manualSave: document.getElementById("manualViewsSave"),
+  manualStatus: document.getElementById("manualViewsStatus"),
+};
+
+const vphOf = (v) => (isVphExcluded(v) ? 0 : v.viewsPerHour || 0);
+
+function fmtPct(part, total) {
+  if (!total) return "0%";
+  const p = (part / total) * 100;
+  if (p > 0 && p < 0.1) return "<0,1%";
+  return (p >= 10 ? Math.round(p) : p.toFixed(1)).toString().replace(".", ",") + "%";
+}
+
+function isChannelFilterActive() {
+  return selectedChannelIds.size > 0 && selectedChannelIds.size < allChannelIds.length;
+}
+
+function dashScopeVideos() {
+  if (!isChannelFilterActive()) return allVideos;
+  return allVideos.filter((v) => selectedChannelIds.has(v.channelId));
+}
+
+function dashScopeLabel() {
+  if (!isChannelFilterActive()) return "tất cả kênh";
+  if (selectedChannelIds.size === 1) {
+    const id = [...selectedChannelIds][0];
+    const v = allVideos.find((x) => x.channelId === id);
+    return v ? v.channelTitle : "1 kênh";
+  }
+  return `${selectedChannelIds.size} kênh đã chọn`;
+}
+
+// Gom số liệu theo kênh cho toàn bộ tab.
+function buildChannelAgg(videos) {
+  const map = new Map();
+  for (const v of videos) {
+    let c = map.get(v.channelId);
+    if (!c) {
+      c = {
+        id: v.channelId,
+        title: v.channelTitle,
+        thumb: v.channelThumbnail || "",
+        subs: v.subscriberCount,
+        vph: 0,
+        videoCount: 0,
+        hotCount: 0,
+        videos: [],
+      };
+      map.set(v.channelId, c);
+    }
+    const vph = vphOf(v);
+    c.vph += vph;
+    c.videoCount++;
+    if (vph > DASH_HOT_VPH) c.hotCount++;
+    c.videos.push(v);
+  }
+  return map;
+}
+
+// ---------- View phát sinh 7 ngày của 1 kênh ----------
+// Thứ tự ưu tiên:
+//  1) "auto"   - lịch sử tổng view kênh (channel-stats): view kênh mới nhất - view kênh ~7 ngày trước.
+//                Chính xác nhất, gồm cả video cũ lẫn video mới đăng. Cần app đã theo dõi kênh >= 7 ngày.
+//  2) "est"    - ước tính từ snapshot view của từng video đang theo dõi: video đăng trong 7 ngày tính
+//                toàn bộ view, video cũ hơn tính (view hiện tại - view ~7 ngày trước). Không tính được
+//                phần view của video quá cũ không còn được cập nhật -> có thể thấp hơn thực tế một chút.
+//  3) "manual" - số nhập tay (manual-views.json).
+//  4) "missing"- chưa đủ dữ liệu.
+function views7dFromChannelStats(channelId) {
+  const pts = channelStats[channelId];
+  if (!Array.isArray(pts) || pts.length < 2) return null;
+  const latest = pts[pts.length - 1];
+  if (!Number.isFinite(latest[1])) return null;
+  const target = latest[0] - WEEK_MS;
+  let best = null;
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p = pts[i];
+    if (!Number.isFinite(p[1])) continue;
+    const diff = Math.abs(p[0] - target);
+    if (diff <= 12 * HOUR_MS_DASH && (!best || diff < Math.abs(best[0] - target))) best = p;
+  }
+  return best ? Math.max(0, latest[1] - best[1]) : null;
+}
+
+function views7dFromSnapshots(videos) {
+  let total = 0;
+  let active = 0;
+  for (const v of videos) {
+    if (isVphExcluded(v)) continue;
+    const snaps = Array.isArray(v.snapshots) ? v.snapshots : [];
+    const last = snaps[snaps.length - 1];
+    // Video không còn được cập nhật (ngoài ~50 video mới nhất của kênh) - không biết view tăng thêm bao nhiêu, bỏ qua.
+    if (!last || dataAsOfMs - last[0] > 48 * HOUR_MS_DASH) continue;
+    active++;
+    const target = last[0] - WEEK_MS;
+    const published = new Date(v.publishedAt).getTime();
+    if (published >= target) {
+      total += v.viewCount || 0;
+      continue;
+    }
+    let base = null;
+    for (let i = 0; i < snaps.length - 1; i++) {
+      const s = snaps[i];
+      if (s[0] < target - 36 * HOUR_MS_DASH || s[0] > target + 6 * HOUR_MS_DASH) continue;
+      if (!base || Math.abs(s[0] - target) < Math.abs(base[0] - target)) base = s;
+    }
+    if (!base) return null; // thiếu mốc 7 ngày trước -> chưa đủ dữ liệu
+    total += Math.max(0, (v.viewCount || 0) - base[1]);
+  }
+  return active ? total : null;
+}
+
+function channelViews7d(c) {
+  const auto = views7dFromChannelStats(c.id);
+  if (auto !== null) return { value: auto, src: "auto" };
+  const est = views7dFromSnapshots(c.videos);
+  if (est !== null) return { value: est, src: "est" };
+  const m = manualViews[currentList]?.[c.id];
+  if (m && Number.isFinite(m.views7d)) return { value: m.views7d, src: "manual", updatedAt: m.updatedAt };
+  return { value: null, src: "missing" };
+}
+
+// ---------- Vẽ ----------
+
+function dashRowHtml({ label, value, total, color, meta }) {
+  const pct = total ? (value / total) * 100 : 0;
+  return `
+    <div class="dash-row" style="--dot:${color}">
+      <div class="dash-row__top">
+        <span class="dash-row__name"><span class="dash-dot"></span>${escapeHtml(label)}</span>
+        <span class="dash-row__value">${fmtNumber(value)}</span>
+        <span class="dash-row__pct">${fmtPct(value, total)}</span>
+      </div>
+      <div class="dash-row__bottom">
+        <span class="dash-bar"><span class="dash-bar__fill" style="width:${Math.min(100, pct).toFixed(2)}%"></span></span>
+        <span class="dash-row__meta">${meta}</span>
+      </div>
+    </div>`;
+}
+
+function dashCardHead(title, sub, extra = "") {
+  return `
+    <div class="dash-card__head">
+      <div>
+        <h3 class="dash-card__title">${title}</h3>
+        ${sub ? `<div class="dash-card__sub">${sub}</div>` : ""}
+      </div>
+      ${extra}
+    </div>`;
+}
+
+function dashScopeSub(totalVph) {
+  const clear = isChannelFilterActive()
+    ? ` <button type="button" class="dash-clear" data-dash-clear="1" title="Bỏ lọc kênh">bỏ lọc</button>`
+    : "";
+  return `Tổng ${fmtNumber(totalVph)} · ${escapeHtml(dashScopeLabel())}${clear}`;
+}
+
+function renderDashTiles(scope) {
+  const now = Date.now();
+  let totalVph = 0;
+  let v14 = 0, n14 = 0, v30 = 0, n30 = 0;
+  const channels = new Set();
+  for (const v of scope) {
+    totalVph += vphOf(v);
+    channels.add(v.channelId);
+    if (!v.publishedAt) continue;
+    const age = now - new Date(v.publishedAt).getTime();
+    if (age <= 14 * DAY_MS) { v14 += v.viewCount || 0; n14++; }
+    if (age <= 30 * DAY_MS) { v30 += v.viewCount || 0; n30++; }
+  }
+  const scopeLabel = escapeHtml(dashScopeLabel());
+  const tile = (cls, label, value, sub, title) => `
+    <div class="dash-tile dash-tile--${cls}" title="${escapeAttr(title)}">
+      <div class="dash-tile__label">${label}</div>
+      <div class="dash-tile__value">${fmtNumber(value)}</div>
+      <div class="dash-tile__sub">${sub}</div>
+    </div>`;
+  dashEls.tiles.innerHTML =
+    tile("vph", "Tổng VPH · tất cả video", totalVph, `${fmtNumber(scope.length)} video · ${fmtNumber(channels.size)} kênh`,
+      "Tổng view/giờ của mọi video trong phạm vi kênh đang lọc (không tính video đang live/sắp phát).") +
+    tile("v14", "View 14 ngày", v14, `${fmtNumber(n14)} video · ${scopeLabel}`,
+      "Tổng lượt xem hiện tại của các video ĐĂNG trong 14 ngày gần nhất.") +
+    tile("v30", "View 30 ngày", v30, `${fmtNumber(n30)} video · ${scopeLabel}`,
+      "Tổng lượt xem hiện tại của các video ĐĂNG trong 30 ngày gần nhất.");
+  return totalVph;
+}
+
+function renderDashGroupCard(scope, totalVph) {
+  const sums = {};
+  for (const g of DASH_GROUPS) sums[g.cls] = { vph: 0, videos: 0, channels: new Set() };
+  for (const v of scope) {
+    const s = sums[classifyChannelGroup(v.subscriberCount).cls];
+    s.vph += vphOf(v);
+    s.videos++;
+    s.channels.add(v.channelId);
+  }
+  const rows = DASH_GROUPS.filter((g) => g.cls !== "unknown" || sums.unknown.videos > 0)
+    .map((g) =>
+      dashRowHtml({
+        label: g.label,
+        value: sums[g.cls].vph,
+        total: totalVph,
+        color: g.color,
+        meta: `${g.meta} · ${fmtNumber(sums[g.cls].channels.size)} kênh · ${fmtNumber(sums[g.cls].videos)} video`,
+      })
+    )
+    .join("");
+  dashEls.group.innerHTML = dashCardHead("VPH theo nhóm kênh", dashScopeSub(totalVph)) + rows;
+}
+
+function renderDashAgeCard(scope, totalVph) {
+  const sums = DASH_AGE_BUCKETS.map(() => ({ vph: 0, videos: 0 }));
+  for (const v of scope) {
+    const d = getDaysAgo(v);
+    if (d === null) continue;
+    const i = DASH_AGE_BUCKETS.findIndex((b) => b.test(Math.max(0, d)));
+    if (i === -1) continue;
+    sums[i].vph += vphOf(v);
+    sums[i].videos++;
+  }
+  const rows = DASH_AGE_BUCKETS.map((b, i) =>
+    dashRowHtml({
+      label: b.label,
+      value: sums[i].vph,
+      total: totalVph,
+      color: b.color,
+      meta: `${b.meta} · ${fmtNumber(sums[i].videos)} video`,
+    })
+  ).join("");
+  dashEls.age.innerHTML = dashCardHead("VPH theo thời gian đăng", dashScopeSub(totalVph)) + rows;
+}
+
+function dashChannelItemHtml(c, rank, value, maxValue, total, metaHtml, color) {
+  const selected = isChannelFilterActive() && selectedChannelIds.has(c.id);
+  const width = maxValue ? Math.max(2, (value / maxValue) * 100) : 0;
+  return `
+    <button type="button" class="dash-chan${selected ? " is-selected" : ""}" data-dash-channel="${escapeAttr(c.id)}" style="--dot:${color}"
+      title="${selected ? "Bấm để bỏ lọc kênh này" : "Bấm để lọc bảng dữ liệu theo kênh này"}">
+      <span class="dash-chan__top">
+        <span class="dash-chan__rank">${rank}</span>
+        <img class="dash-chan__avatar" src="${escapeAttr(c.thumb)}" alt="" loading="lazy" decoding="async" />
+        <span class="dash-chan__name">${escapeHtml(c.title)}</span>
+        <span class="dash-chan__value">${value === null ? "–" : fmtNumber(value)}</span>
+        <span class="dash-chan__pct">${value === null ? "" : fmtPct(value, total)}</span>
+      </span>
+      <span class="dash-row__bottom">
+        <span class="dash-bar"><span class="dash-bar__fill" style="width:${width.toFixed(2)}%"></span></span>
+        <span class="dash-chan__meta">${metaHtml}</span>
+      </span>
+    </button>`;
+}
+
+function dashListHtml(itemsHtml) {
+  const hasSel = isChannelFilterActive() ? " has-selection" : "";
+  return `
+    <div class="dash-list-wrap">
+      <div class="dash-list${hasSel}">${itemsHtml}</div>
+      <div class="dash-scroll">
+        <button type="button" class="dash-scroll__btn" data-dash-scroll="-1" title="Cuộn lên" aria-label="Cuộn lên">▲</button>
+        <button type="button" class="dash-scroll__btn" data-dash-scroll="1" title="Cuộn xuống" aria-label="Cuộn xuống">▼</button>
+      </div>
+    </div>`;
+}
+
+function renderDashTopVph(agg) {
+  const list = [...agg.values()].sort((a, b) => b.vph - a.vph);
+  const tabTotal = list.reduce((s, c) => s + c.vph, 0);
+  const top = list.slice(0, DASH_TOP_N);
+  if (!top.length) {
+    dashEls.topVph.innerHTML = dashCardHead("Top 10 kênh VPH cao nhất", "") + `<div class="dash-card__empty">Chưa có dữ liệu.</div>`;
+    return;
+  }
+  const max = top[0].vph;
+  const items = top
+    .map((c, i) => {
+      const g = classifyChannelGroup(c.subs);
+      const meta = `${g.label} · ${fmtNumber(c.videoCount)} video · <span class="dash-chan__hot">${fmtNumber(c.hotCount)} video &gt;${DASH_HOT_VPH}</span>`;
+      return dashChannelItemHtml(c, i + 1, c.vph, max, tabTotal, meta, "var(--teal)");
+    })
+    .join("");
+  dashEls.topVph.innerHTML =
+    dashCardHead(
+      "Top 10 kênh VPH cao nhất",
+      `% trên tổng ${fmtNumber(tabTotal)} VPH · bấm kênh để lọc bảng`
+    ) + dashListHtml(items);
+}
+
+function renderDashTop7d(agg) {
+  const rows = [...agg.values()].map((c) => ({ c, ...channelViews7d(c) }));
+  const withValue = rows.filter((r) => r.value !== null).sort((a, b) => b.value - a.value);
+  const missing = rows.length - withValue.length;
+  const total = withValue.reduce((s, r) => s + r.value, 0);
+  const top = withValue.slice(0, DASH_TOP_N);
+  const max = top.length ? top[0].value : 0;
+  const srcLabel = {
+    auto: `<span class="dash-chan__src--auto">tự động</span>`,
+    est: `<span class="dash-chan__src--est" title="Ước tính từ lượt xem các video đang theo dõi - sẽ chính xác hơn khi app theo dõi kênh đủ 7 ngày">tự động · ước tính</span>`,
+    manual: `<span class="dash-chan__src--manual">nhập tay</span>`,
+  };
+  const items = top
+    .map((r, i) => {
+      const g = classifyChannelGroup(r.c.subs);
+      let src = srcLabel[r.src];
+      if (r.src === "manual" && r.updatedAt) src = `<span class="dash-chan__src--manual">nhập tay ${fmtDate(r.updatedAt).slice(0, 5)}</span>`;
+      return dashChannelItemHtml(r.c, i + 1, r.value, max, total, `${g.label} · ${src}`, "var(--gold)");
+    })
+    .join("");
+  const body = top.length
+    ? dashListHtml(items)
+    : `<div class="dash-card__empty">Chưa kênh nào đủ dữ liệu 7 ngày.<br />Bấm "✎ Nhập tay" để nhập số liệu.</div>`;
+  const foot = `Tổng ${fmtNumber(total)} view phát sinh 7 ngày${
+    missing ? ` · <span class="dash-chan__src--missing">${missing} kênh chưa đủ dữ liệu</span>` : ""
+  }`;
+  dashEls.top7d.innerHTML =
+    dashCardHead(
+      "Top 10 kênh · view 7 ngày",
+      "View phát sinh 7 ngày · bấm kênh để lọc bảng",
+      `<button type="button" class="dash-btn" data-dash-manual="1" title="Nhập tay view 7 ngày cho kênh chưa đủ dữ liệu">✎ Nhập tay</button>`
+    ) +
+    body +
+    `<div class="dash-card__foot">${foot}</div>`;
+}
+
+function updateDashScrollButtons(card) {
+  const list = card.querySelector(".dash-list");
+  if (!list) return;
+  const up = card.querySelector('[data-dash-scroll="-1"]');
+  const down = card.querySelector('[data-dash-scroll="1"]');
+  const canScroll = list.scrollHeight > list.clientHeight + 2;
+  up.disabled = !canScroll || list.scrollTop <= 1;
+  down.disabled = !canScroll || list.scrollTop + list.clientHeight >= list.scrollHeight - 2;
+}
+
+function renderDashboard() {
+  // Giữ nguyên vị trí cuộn của 2 danh sách Top 10 khi vẽ lại (vd sau khi bấm chọn 1 kênh).
+  const keep = [dashEls.topVph, dashEls.top7d].map((card) => card.querySelector(".dash-list")?.scrollTop || 0);
+
+  const scope = dashScopeVideos();
+  const totalVph = renderDashTiles(scope);
+  renderDashGroupCard(scope, totalVph);
+  renderDashAgeCard(scope, totalVph);
+  const agg = buildChannelAgg(allVideos);
+  renderDashTopVph(agg);
+  renderDashTop7d(agg);
+
+  [dashEls.topVph, dashEls.top7d].forEach((card, i) => {
+    const list = card.querySelector(".dash-list");
+    if (!list) return;
+    list.scrollTop = keep[i];
+    list.addEventListener("scroll", () => updateDashScrollButtons(card), { passive: true });
+    updateDashScrollButtons(card);
+  });
+}
+
+// Gọi từ applyFilters(): chỉ vẽ lại khi dữ liệu hoặc bộ lọc KÊNH thay đổi
+// (gõ tìm kiếm / bấm chip không làm dashboard đổi, nên không cần vẽ lại).
+function renderDashboardIfNeeded() {
+  const key = `${currentList}|${dashDataVersion}|${isChannelFilterActive() ? [...selectedChannelIds].sort().join(",") : "*"}`;
+  if (key === dashRenderedKey) return;
+  dashRenderedKey = key;
+  renderDashboard();
+}
+
+// Chọn kênh từ dashboard -> đồng bộ với ô lọc "Tất cả kênh" phía dưới.
+function setChannelSelection(ids) {
+  selectedChannelIds = new Set(ids);
+  els.channelFilterList.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+    cb.checked = selectedChannelIds.has(cb.value);
+  });
+  updateChannelFilterLabel();
+  applyFilters();
+}
+
+document.getElementById("vphDash").addEventListener("click", (e) => {
+  const scrollBtn = e.target.closest("[data-dash-scroll]");
+  if (scrollBtn) {
+    const list = scrollBtn.closest(".dash-list-wrap").querySelector(".dash-list");
+    const item = list.querySelector(".dash-chan");
+    const step = item ? item.offsetHeight + 2 : 60;
+    list.scrollBy({ top: Number(scrollBtn.dataset.dashScroll) * step * 2, behavior: "smooth" });
+    return;
+  }
+  const chan = e.target.closest("[data-dash-channel]");
+  if (chan) {
+    const id = chan.dataset.dashChannel;
+    const onlyThis = isChannelFilterActive() && selectedChannelIds.size === 1 && selectedChannelIds.has(id);
+    setChannelSelection(onlyThis ? [] : [id]);
+    return;
+  }
+  if (e.target.closest("[data-dash-clear]")) {
+    setChannelSelection([]);
+    return;
+  }
+  if (e.target.closest("[data-dash-manual]")) openManualViews();
+});
+
+// ---------- Nhập tay view 7 ngày ----------
+
+function parseViewsInput(str) {
+  const digits = String(str || "").replace(/[^\d]/g, "");
+  return digits ? parseInt(digits, 10) : null;
+}
+
+function setManualStatus(message, kind) {
+  const el = dashEls.manualStatus;
+  el.textContent = message;
+  el.classList.toggle("visible", Boolean(message));
+  el.classList.remove("fetch-trigger__status--ok", "fetch-trigger__status--error");
+  if (kind) el.classList.add(`fetch-trigger__status--${kind}`);
+}
+
+function openManualViews(keepStatus = false) {
+  const agg = [...buildChannelAgg(allVideos).values()].sort((a, b) => a.title.localeCompare(b.title));
+  const need = [];
+  const done = [];
+  for (const c of agg) {
+    const r = channelViews7d(c);
+    if (r.src === "auto" || r.src === "est") done.push({ c, r });
+    else need.push({ c, r });
+  }
+  const row = ({ c, r }, editable) => {
+    const m = manualViews[currentList]?.[c.id];
+    const note = editable
+      ? m
+        ? `Đang dùng số nhập tay · cập nhật ${fmtDateTime(m.updatedAt)}`
+        : `Chưa có số liệu`
+      : `Tự động: ${fmtNumber(r.value)} view${r.src === "est" ? " (ước tính)" : ""}`;
+    const input = editable
+      ? `<input type="text" inputmode="numeric" class="fetch-trigger__input" data-manual-id="${escapeAttr(c.id)}" data-manual-title="${escapeAttr(c.title)}" data-manual-old="${m ? m.views7d : ""}" value="${m ? fmtNumber(m.views7d) : ""}" placeholder="View 7 ngày" />`
+      : `<span class="manual-views__note" style="text-align:right">đã tự tính</span>`;
+    return `
+      <div class="manual-views__row">
+        <img class="dash-chan__avatar" src="${escapeAttr(c.thumb)}" alt="" loading="lazy" />
+        <div style="min-width:0">
+          <div class="manual-views__name">${escapeHtml(c.title)}</div>
+          <div class="manual-views__note">${note}</div>
+        </div>
+        ${input}
+      </div>`;
+  };
+  dashEls.manualList.innerHTML =
+    (need.length
+      ? `<div class="manual-views__group">Chưa đủ dữ liệu · ${need.length} kênh</div>` + need.map((x) => row(x, true)).join("")
+      : `<div class="manual-views__group">Mọi kênh đều đã có số liệu tự động</div>`) +
+    (done.length ? `<div class="manual-views__group">Đã tự tính · ${done.length} kênh</div>` + done.map((x) => row(x, false)).join("") : "");
+  if (!keepStatus) setManualStatus("");
+  dashEls.manualSave.disabled = need.length === 0;
+  dashEls.manualOverlay.classList.add("open");
+  dashEls.manualList.querySelector("input")?.focus();
+}
+
+function closeManualViews() {
+  dashEls.manualOverlay.classList.remove("open");
+}
+
+dashEls.manualList.addEventListener("change", (e) => {
+  const input = e.target.closest("input[data-manual-id]");
+  if (!input) return;
+  const n = parseViewsInput(input.value);
+  input.value = n === null ? "" : fmtNumber(n);
+});
+
+dashEls.manualSave.addEventListener("click", async () => {
+  const entries = [];
+  dashEls.manualList.querySelectorAll("input[data-manual-id]").forEach((input) => {
+    const n = parseViewsInput(input.value);
+    const old = input.dataset.manualOld === "" ? null : Number(input.dataset.manualOld);
+    if (n !== old) entries.push({ channelId: input.dataset.manualId, title: input.dataset.manualTitle, views7d: n });
+  });
+  if (!entries.length) return setManualStatus("Không có thay đổi nào để lưu.", "error");
+
+  dashEls.manualSave.disabled = true;
+  setManualStatus("Đang lưu...", "");
+  try {
+    const res = await fetch("/api/manual-views", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tab: currentList, entries }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) return setManualStatus(data.error || "Có lỗi xảy ra, thử lại sau.", "error");
+    manualViews = data.manualViews || manualViews;
+    dashDataVersion++;
+    renderDashboardIfNeeded();
+    setManualStatus(`Đã lưu ${entries.length} kênh. Người khác sẽ thấy số mới sau ~1 phút (khi web tự cập nhật).`, "ok");
+    setTimeout(() => {
+      if (dashEls.manualOverlay.classList.contains("open")) openManualViews(true);
+    }, 900);
+  } catch {
+    setManualStatus("Không kết nối được tới server.", "error");
+  } finally {
+    dashEls.manualSave.disabled = false;
+  }
+});
+
+dashEls.manualClose.addEventListener("click", closeManualViews);
+dashEls.manualOverlay.addEventListener("click", (e) => {
+  if (e.target === dashEls.manualOverlay) closeManualViews();
+});
+
 // ---------- Events ----------
 
 let searchTimer = null;
@@ -1616,6 +2179,7 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape") {
     closeModal();
     closeChannelModal();
+    closeManualViews();
   }
 });
 
