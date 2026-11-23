@@ -9,11 +9,11 @@ const ago = (h) => NOW - h * H;
 const video = (viewCount) => ({ viewCount, publishedAt: "2026-09-01T00:00:00Z" });
 const run = (o) => computeVelocity({ nowMs: NOW, liveStatus: "none", ...o });
 
-test("cấu hình mặc định: 6h / 24h / 48h / 8 snapshot", () => {
+test("cấu hình mặc định: 6h / 24h / 48h / 10 snapshot", () => {
   assert.equal(CONFIG.minIntervalHours, 6);
   assert.equal(CONFIG.windowMaxHours, 24);
   assert.equal(CONFIG.fallbackMaxHours, 48);
-  assert.equal(CONFIG.maxSnapshots, 8);
+  assert.equal(CONFIG.maxSnapshots, 10);
 });
 
 test("fetch cách lần trước < 6h: giữ nguyên VPH cũ, không thêm snapshot", () => {
@@ -65,10 +65,10 @@ test("video mới thấy lần đầu: lifetime + tạo snapshot đầu tiên", 
 });
 
 test("giữ tối đa MAX_SNAPSHOTS mốc, bỏ mốc cũ nhất", () => {
-  const snaps = Array.from({ length: 8 }, (_, i) => [ago(60 - i * 6.5), i * 10]);
+  const snaps = Array.from({ length: CONFIG.maxSnapshots }, (_, i) => [ago(70 - i * 6.5), i * 10]);
   const prev = { viewCount: 70, viewsPerHour: 1, snapshots: snaps };
   const r = run({ video: video(500), prev });
-  assert.equal(r.snapshots.length, 8);
+  assert.equal(r.snapshots.length, CONFIG.maxSnapshots);
   assert.equal(r.snapshots.at(-1)[0], NOW);
   assert.notDeepEqual(r.snapshots[0], snaps[0]);
 });
