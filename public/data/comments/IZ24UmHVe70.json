@@ -3,14 +3,33 @@
   "disabled": false,
   "comments": [
     {
+      "id": "Ugy1bNIgfV_2S7V7nGZ4AaABAg",
+      "author": "@DollMichelle",
+      "authorImage": "https://yt3.ggpht.com/ytc/AIdro_kfyrWT62GovrkF4N2DhuQsg9rauPuX421ZYBlvxGjmsp4=s48-c-k-c0x00ffffff-no-rj",
+      "text": "God bless'",
+      "likeCount": 0,
+      "publishedAt": "2026-11-22T23:01:43Z",
+      "replyCount": 0,
+      "replies": []
+    },
+    {
       "id": "UgwquN1lblfu-hG6KEx4AaABAg",
       "author": "@sameersingbal6126",
       "authorImage": "https://yt3.ggpht.com/ytc/AIdro_nKJh3qF8ERf9yz_hKsA-hU3iyfWy0odgbuFhVc2TUJ9ks=s48-c-k-c0x00ffffff-no-rj",
       "text": "Mumbai 24 deg C",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-11-21T14:52:52Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgwquN1lblfu-hG6KEx4AaABAg.AdU-AbP7l2DAdW7odFHzyy",
+          "author": "@PlanetVista4K",
+          "authorImage": "https://yt3.ggpht.com/UP1KuiI-ZYUr_V0QMZqUj3WrxSMAqB70paheckH8ptL_nqqbtqZa5KyGSVhQ0Mc9Ay6bF1Odbw=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Greetings to Mumbai! A pleasant 24°C on your end — quite a contrast with the Sahara heat in Niger. Thanks for watching!",
+          "likeCount": 0,
+          "publishedAt": "2026-11-22T10:46:52Z"
+        }
+      ]
     },
     {
       "id": "UgzgLaCvJGlAB0tSb2Z4AaABAg",
