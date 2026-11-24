@@ -1,19 +1,27 @@
 {
   "list": "EnglishTravel",
-  "lastUpdated": "2026-11-23T03:26:34.966Z",
+  "lastUpdated": "2026-11-24T06:40:28.736Z",
   "channelCount": 27,
-  "videoCount": 1190,
-  "quotaUnitsUsed": 678,
+  "videoCount": 1117,
+  "quotaUnitsUsed": 671,
   "apiKeysConfigured": 3,
   "vph": {
     "minIntervalHours": 6,
     "windowMaxHours": 24,
     "fallbackMaxHours": 48,
-    "maxSnapshots": 8
+    "maxSnapshots": 10
   },
-  "liveCount": 2,
+  "liveCount": 1,
   "allKeysExhausted": false,
   "errors": [
+    {
+      "videoId": "erjiTbFDz3I",
+      "error": "commentThreads failed: processingFailure"
+    },
+    {
+      "videoId": "Hqbstgub-44",
+      "error": "commentThreads failed: processingFailure"
+    },
     {
       "channel": "https://www.youtube.com/@AmazingGlobeDocumentary/videos",
       "error": "Channel not found for \"https://www.youtube.com/@AmazingGlobeDocumentary/videos\""

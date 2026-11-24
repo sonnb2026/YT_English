@@ -7,10 +7,27 @@
       "author": "@dgonthehill",
       "authorImage": "https://yt3.ggpht.com/ytc/AIdro_mgtgjmX0bCf33IjYBt3VROKvWFgG791whiZF4SXPE=s48-c-k-c0x00ffffff-no-rj",
       "text": "wow love sight seeing",
-      "likeCount": 0,
+      "likeCount": 1,
       "publishedAt": "2026-11-18T15:56:13Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 2,
+      "replies": [
+        {
+          "id": "Ugz7ddYyv3GZCn8uLNN4AaABAg.AdMO1vkxPKBAdY9FNLPsHK",
+          "author": "@dgonthehill",
+          "authorImage": "https://yt3.ggpht.com/ytc/AIdro_mgtgjmX0bCf33IjYBt3VROKvWFgG791whiZF4SXPE=s48-c-k-c0x00ffffff-no-rj",
+          "text": "@myunrealplanettv. yup greatvideos",
+          "likeCount": 0,
+          "publishedAt": "2026-11-23T05:37:52Z"
+        },
+        {
+          "id": "Ugz7ddYyv3GZCn8uLNN4AaABAg.AdMO1vkxPKBAdY8xxjC0Lq",
+          "author": "@myunrealplanettv.",
+          "authorImage": "https://yt3.ggpht.com/N30IgRpQM77zkWie9DPzP7P-ji8uo-gvCljIvNd9PAycl2TZAv3B7mHXGdA69wie07H-_xx8yJA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Glad you enjoyed the sights!",
+          "likeCount": 1,
+          "publishedAt": "2026-11-23T05:35:21Z"
+        }
+      ]
     }
   ]
 }
