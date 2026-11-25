@@ -9,8 +9,17 @@
       "text": "Very beautiful scenery",
       "likeCount": 0,
       "publishedAt": "2026-11-21T16:22:45Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgzPAo2L4mQXwqyC9014AaABAg.AdU9SwZ8XYpAdc-ZHCRi2O",
+          "author": "@Earthcue",
+          "authorImage": "https://yt3.ggpht.com/iQz_3dWSTJp44j0m4mCXBNiaYUbd6OG3TbJ2ShLfVxB9Cn7GAzNOxVX5kHYk_aECUy4uZxMkaQ=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Glad you enjoyed the scenery! The Great Plains have a beauty of their own, especially those wide-open landscapes. Was there a particular view in the video that you liked most?",
+          "likeCount": 0,
+          "publishedAt": "2026-11-25T02:49:24Z"
+        }
+      ]
     }
   ]
 }

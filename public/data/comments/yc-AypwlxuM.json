@@ -17,10 +17,27 @@
       "author": "@AmazingDiscoveriesTopUS",
       "authorImage": "https://yt3.ggpht.com/mWQlW84MbnlW7e78Ln_Hiexvd-tTPHfRZFQKud6DoN3cbWfnlpLwnUJCzCh4l80FPm8TX2xC=s48-c-k-c0x00ffffff-no-rj",
       "text": "I love Phnom Penh.",
-      "likeCount": 0,
+      "likeCount": 2,
       "publishedAt": "2026-11-23T02:15:14Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 2,
+      "replies": [
+        {
+          "id": "UgwJeMSQ0emThKqQn1F4AaABAg.AdXn3E2DpxkAdaImnNnDBb",
+          "author": "@TravelToFacts",
+          "authorImage": "https://yt3.ggpht.com/f7MPyZV0VtWfj7T5ovayRe44uBeZuQOXERVMgjUxx-RG2Ri5000A748hoYcw-XqDrYohLFpqf10=s48-c-k-c0x00ffffff-no-rj",
+          "text": "What do you love most about this city the people, the food, or the vibrant street life?",
+          "likeCount": 0,
+          "publishedAt": "2026-11-24T10:58:56Z"
+        },
+        {
+          "id": "UgwJeMSQ0emThKqQn1F4AaABAg.AdXn3E2DpxkAd_zj8AzXcU",
+          "author": "@RumboalMundo2",
+          "authorImage": "https://yt3.ggpht.com/DER5Q63p8RlubleikvTMnVS7DDQMudCIeTt6Os__cXB7-jPCPG2OaVil5G7Ztfpyab5cSJe6Tg=s48-c-k-c0x00ffffff-no-rj",
+          "text": "mee too",
+          "likeCount": 0,
+          "publishedAt": "2026-11-24T08:03:40Z"
+        }
+      ]
     }
   ]
 }
