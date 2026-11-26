@@ -1,5 +1,35 @@
 {
   "videoId": "cIWos_yW3ZM",
   "disabled": false,
-  "comments": []
+  "comments": [
+    {
+      "id": "UgxazlhzOmmUqqRYQTZ4AaABAg",
+      "author": "@RealLifeUncovered-u1d",
+      "authorImage": "https://yt3.ggpht.com/OWhXu6zlfgEgLsVgtA5aKyzs6SV7cWvL06wwzjHsMLFjLdZh5Sj4EvOaaIa1BK2LOSVHcv4PqA=s48-c-k-c0x00ffffff-no-rj",
+      "text": "It's amazing how people can thrive in conditions that seem impossible.",
+      "likeCount": 1,
+      "publishedAt": "2026-11-26T02:06:09Z",
+      "replyCount": 0,
+      "replies": []
+    },
+    {
+      "id": "Ugy3wizZzxjk6EJAdW54AaABAg",
+      "author": "@AmazingDiscoveriesTopUS",
+      "authorImage": "https://yt3.ggpht.com/mWQlW84MbnlW7e78Ln_Hiexvd-tTPHfRZFQKud6DoN3cbWfnlpLwnUJCzCh4l80FPm8TX2xC=s48-c-k-c0x00ffffff-no-rj",
+      "text": "Amazing video. THanks",
+      "likeCount": 1,
+      "publishedAt": "2026-11-26T01:47:54Z",
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "Ugy3wizZzxjk6EJAdW54AaABAg.AdeTJcc6B1jAdehxcXNapn",
+          "author": "@FlávioSousa-c2z",
+          "authorImage": "https://yt3.ggpht.com/ytc/AIdro_nwfT50htsthWKbQG8XZyTVXCJKIY_cr3d_ec0f87HyoTEKTHQKJHAeBtG6dhmYybmTcg=s48-c-k-c0x00ffffff-no-rj",
+          "text": "😢",
+          "likeCount": 1,
+          "publishedAt": "2026-11-26T04:04:34Z"
+        }
+      ]
+    }
+  ]
 }

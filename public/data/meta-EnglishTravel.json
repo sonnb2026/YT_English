@@ -1,9 +1,9 @@
 {
   "list": "EnglishTravel",
-  "lastUpdated": "2026-11-25T05:11:51.147Z",
+  "lastUpdated": "2026-11-26T04:40:05.822Z",
   "channelCount": 27,
-  "videoCount": 1119,
-  "quotaUnitsUsed": 825,
+  "videoCount": 1123,
+  "quotaUnitsUsed": 612,
   "apiKeysConfigured": 3,
   "vph": {
     "minIntervalHours": 6,
@@ -17,6 +17,18 @@
     {
       "channel": "https://www.youtube.com/@AmazingGlobeDocumentary/videos",
       "error": "Channel not found for \"https://www.youtube.com/@AmazingGlobeDocumentary/videos\""
+    },
+    {
+      "videoId": "G9PiBDI0jyM",
+      "error": "commentThreads failed: processingFailure"
+    },
+    {
+      "videoId": "-YerxzqF-N4",
+      "error": "commentThreads failed: processingFailure"
+    },
+    {
+      "videoId": "O5r5MFYBy0w",
+      "error": "commentThreads failed: processingFailure"
     },
     {
       "channel": "https://www.youtube.com/@Global_life18",
