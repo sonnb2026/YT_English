@@ -3,14 +3,33 @@
   "disabled": false,
   "comments": [
     {
+      "id": "Ugxp37maUuJNN3fLGWB4AaABAg",
+      "author": "@ValleyProud916",
+      "authorImage": "https://yt3.ggpht.com/1_nh0eVUnPs9oXs1Jh1iyWfZEk0cI0aVMPtPt-GUT2MgXDjqT3YCkqNYaqDV-8QOFsO8t3fy9A=s48-c-k-c0x00ffffff-no-rj",
+      "text": "If only there was a Walmart",
+      "likeCount": 0,
+      "publishedAt": "2026-11-27T00:30:00Z",
+      "replyCount": 0,
+      "replies": []
+    },
+    {
       "id": "UgxvSQn6T00BwohGNcx4AaABAg",
       "author": "@jaishankarshettigar9301",
       "authorImage": "https://yt3.ggpht.com/5V5uqgSpTm5Vs0gkI4o-VKI9gm89nFwC4XMjm5ffzLw1_DCVCnawS5cJLEbdCB7cU3Zbu3WS=s48-c-k-c0x00ffffff-no-rj",
       "text": "Bengaluru India",
       "likeCount": 0,
       "publishedAt": "2026-11-25T10:21:08Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgxvSQn6T00BwohGNcx4AaABAg.AdcoFshfX5QAdfGL0W29XA",
+          "author": "@PlanetVista4K",
+          "authorImage": "https://yt3.ggpht.com/UP1KuiI-ZYUr_V0QMZqUj3WrxSMAqB70paheckH8ptL_nqqbtqZa5KyGSVhQ0Mc9Ay6bF1Odbw=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Thanks for letting me know where you're tuning in from! Hope you enjoyed the journey into Guam.",
+          "likeCount": 0,
+          "publishedAt": "2026-11-26T09:13:44Z"
+        }
+      ]
     },
     {
       "id": "UgyF1ZcYIMonQ_Y9M4h4AaABAg",
@@ -632,44 +651,6 @@
           "text": "Hello brother, thanks for your comments, we will fix our pronunciation in the next videos, and hope you have a great day!",
           "likeCount": 0,
           "publishedAt": "2026-09-01T09:15:40Z"
-        }
-      ]
-    },
-    {
-      "id": "UgwNe6wgPmpAsQ-5H3d4AaABAg",
-      "author": "@RealmHidden",
-      "authorImage": "https://yt3.ggpht.com/ytc/AIdro_lp9OQ-_ykMGuXZ9KrcKyPSm9kA9vB9cMF5T5UXie-0OmMMmgygTjG1BuATiGxiSrkuCQ=s48-c-k-c0x00ffffff-no-rj",
-      "text": "What a breathtaking journey! I felt like I was right there.",
-      "likeCount": 2,
-      "publishedAt": "2026-08-29T01:43:54Z",
-      "replyCount": 1,
-      "replies": [
-        {
-          "id": "UgwNe6wgPmpAsQ-5H3d4AaABAg.Aa4I6WmG10WAa4bRIy-qk3",
-          "author": "@PlanetVista4K",
-          "authorImage": "https://yt3.ggpht.com/UP1KuiI-ZYUr_V0QMZqUj3WrxSMAqB70paheckH8ptL_nqqbtqZa5KyGSVhQ0Mc9Ay6bF1Odbw=s48-c-k-c0x00ffffff-no-rj",
-          "text": "Thanks a lot for your appreciation!",
-          "likeCount": 0,
-          "publishedAt": "2026-08-29T04:41:30Z"
-        }
-      ]
-    },
-    {
-      "id": "UgwqZqA3v1yauEI9UxN4AaABAg",
-      "author": "@juanvillasin",
-      "authorImage": "https://yt3.ggpht.com/ytc/AIdro_kjUVrqCB6UWF75gLzU932nE3hFxWgq9DnF2J5ZgTdjAIb7ONkpz4bBRKOhrX02vgoUJA=s48-c-k-c0x00ffffff-no-rj",
-      "text": "Watching Filipino American from Sarasota Florida USA",
-      "likeCount": 1,
-      "publishedAt": "2026-08-28T18:06:10Z",
-      "replyCount": 1,
-      "replies": [
-        {
-          "id": "UgwqZqA3v1yauEI9UxN4AaABAg.Aa3TixEnNh9Aa4InInFF4h",
-          "author": "@PlanetVista4K",
-          "authorImage": "https://yt3.ggpht.com/UP1KuiI-ZYUr_V0QMZqUj3WrxSMAqB70paheckH8ptL_nqqbtqZa5KyGSVhQ0Mc9Ay6bF1Odbw=s48-c-k-c0x00ffffff-no-rj",
-          "text": "Greetings to Sarasota. Guam and the Philippines have been tied together for centuries — Filipinos are one of the island's largest communities, so that connection you're feeling is a real one.",
-          "likeCount": 0,
-          "publishedAt": "2026-08-29T01:49:53Z"
         }
       ]
     }

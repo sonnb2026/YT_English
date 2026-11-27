@@ -1,9 +1,9 @@
 {
   "list": "4K-EN",
-  "lastUpdated": "2026-11-26T04:50:02.082Z",
+  "lastUpdated": "2026-11-27T04:49:10.669Z",
   "channelCount": 56,
-  "videoCount": 4198,
-  "quotaUnitsUsed": 3872,
+  "videoCount": 4220,
+  "quotaUnitsUsed": 3890,
   "apiKeysConfigured": 3,
   "vph": {
     "minIntervalHours": 6,
@@ -11,7 +11,7 @@
     "fallbackMaxHours": 48,
     "maxSnapshots": 10
   },
-  "liveCount": 2,
+  "liveCount": 3,
   "allKeysExhausted": false,
   "errors": [
     {
