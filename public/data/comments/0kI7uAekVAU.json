@@ -67,8 +67,17 @@
       "text": "Australia at 5oclock in the afternoon",
       "likeCount": 0,
       "publishedAt": "2026-10-02T07:06:03Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgwJLTKM5K0_d-leTXR4AaABAg.AbSQ-ggZXdNAdjZcZj03rq",
+          "author": "@ImpossibleTravel38",
+          "authorImage": "https://yt3.ggpht.com/jIkotvj5_lQhw2mcDlb5BkO-Df2LnjMadSRe9EHitp6aX34LhCuC31_oO3v-YsCuzlJxNDTynA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Thank you for watching from Australia!🥰🥰🥰",
+          "likeCount": 0,
+          "publishedAt": "2026-11-28T01:19:15Z"
+        }
+      ]
     },
     {
       "id": "UgwcIgDLJ0Q937qNfBR4AaABAg",

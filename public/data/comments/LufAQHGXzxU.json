@@ -115,8 +115,17 @@
       "text": "Wow",
       "likeCount": 0,
       "publishedAt": "2026-10-01T17:27:31Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "UgwPYE3SX6esGN8wvNl4AaABAg.AbQxKcoOP95AdjZKmf-ium",
+          "author": "@ImpossibleTravel38",
+          "authorImage": "https://yt3.ggpht.com/jIkotvj5_lQhw2mcDlb5BkO-Df2LnjMadSRe9EHitp6aX34LhCuC31_oO3v-YsCuzlJxNDTynA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "Bosnia is truly a beautiful place! 🥰🥰🥰",
+          "likeCount": 0,
+          "publishedAt": "2026-11-28T01:16:41Z"
+        }
+      ]
     },
     {
       "id": "Ugw6Aq7rzE6A9GW7qWt4AaABAg",
@@ -125,8 +134,17 @@
       "text": "Beautiful country",
       "likeCount": 2,
       "publishedAt": "2026-10-01T09:03:50Z",
-      "replyCount": 0,
-      "replies": []
+      "replyCount": 1,
+      "replies": [
+        {
+          "id": "Ugw6Aq7rzE6A9GW7qWt4AaABAg.AbQ2gaH_Vg2AdjZYbE5sBx",
+          "author": "@ImpossibleTravel38",
+          "authorImage": "https://yt3.ggpht.com/jIkotvj5_lQhw2mcDlb5BkO-Df2LnjMadSRe9EHitp6aX34LhCuC31_oO3v-YsCuzlJxNDTynA=s48-c-k-c0x00ffffff-no-rj",
+          "text": "I'm so glad you enjoyed it!❤️❤️❤️❤️",
+          "likeCount": 0,
+          "publishedAt": "2026-11-28T01:18:34Z"
+        }
+      ]
     },
     {
       "id": "Ugy_wu4rWlAFVI9rniV4AaABAg",
